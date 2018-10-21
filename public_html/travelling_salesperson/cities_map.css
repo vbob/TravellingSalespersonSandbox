@@ -1,0 +1,25 @@
+/* City Color */
+.dot circle {
+  fill: lightsteelblue;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+/* City Color when Draggin */
+.dot circle.dragging {
+  fill: red;
+  stroke: brown;
+}
+
+.dot circle.initial_city {
+  fill: greenyellow;
+  stroke: green;
+}
+
+/* Grid Color */
+.axis line {
+  fill: none;
+  stroke-width: 0px; /* dont show grid */
+  stroke: #bbb;
+  shape-rendering: crispEdges;
+}

@@ -1,0 +1,38 @@
+// JQuery (for Popper and Bootstrap. DONT USE JQUERY HERER)
+script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')
+
+// Popper for tooltips
+script(src='https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js', integrity='sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U', crossorigin='anonymous')
+
+// Material Design for Bootstrap
+script(src='https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js', integrity='sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9', crossorigin='anonymous')
+
+// Activate Material Design
+script.
+    $(document).ready(function() { $('body').bootstrapMaterialDesign(); });
+
+// D3js for Cities Map
+script(src='https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.min.js')
+
+// C3js (after D3) for charts
+script(src='https://cdnjs.cloudflare.com/ajax/libs/c3/0.6.8/c3.min.js')
+
+// MomentJS for time management
+script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js')
+
+// Local JS Files. Don't change this order in any way.
+
+// Only need to load these in index page
+if source == 'index'
+    script(src='ui/node_manager.js')
+    script(src='travelling_salesperson/cities_map.js')
+    script(src='travelling_salesperson/right_general_options.js')
+    script(src='travelling_salesperson/convergency_plot.js')
+    script(src='travelling_salesperson/stats_manager.js')
+    script(src='ui/control_panel.js')
+    script(src='ui/algorithms_manager.js')
+    script(src='travelling_salesperson/travelling_salesperson_problem.js')
+    script(src='travelling_salesperson/heuristics_manager.js')
+    
+    
+    

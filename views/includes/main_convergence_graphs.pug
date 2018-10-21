@@ -1,0 +1,32 @@
+// Charts
+.jumbotron#plots_container(style="padding: 0")
+
+  // Navbar
+  ul.nav.nav-tabs.bg-light
+
+    // Convergency
+    li.nav-item
+      a.nav-link.active.in(data-toggle="tab", href="#covergency_plot_container") #{__('convergency')}
+
+    // Distance
+    li.nav-item
+      a.nav-link(data-toggle="tab", href="#distance_plot_container") #{__('distance')}
+
+    // Resources
+    li.nav-item
+      a.nav-link(data-toggle="tab", href="#resources_plot_container") #{__('resources')}
+
+  // Contents
+  .tab-content(style="height: 85%; padding: 30px")
+
+    // Convergency
+    #covergency_plot_container.tab-pane.in.active
+      div#covergency_plot
+
+    // Distance
+    #distance_plot_container.tab-pane.fade
+      div#distance_plot
+    
+    // Resourcess
+    #resources_plot_container.tab-pane.fade
+      div#resources_plot

@@ -1,0 +1,41 @@
+// Topbar
+nav.navbar.navbar-expand-lg.bg-dark(style="height:70px !important;")
+
+  // Left Title
+  a.navbar-brand(href='#').text-light #{__('title')}
+
+  // Left Menus
+  #navbarSupportedContent.collapse.navbar-collapse
+    ul.nav.nav-tabs.bg-dark
+
+      // Index
+      li.nav-item
+        a.nav-link(class=source == "index" ? "active" : "", href='/') #{__('index')}
+
+      // Options
+      li.nav-item
+        a.nav-link(class=source == "options" ? "active" : "", href='/options') #{__('options')}
+
+      // History
+      li.nav-item
+        a.nav-link(class=source == "history" ? "active" : "", href='/history') #{__('history')}
+
+      //About
+      li.nav-item
+        a.nav-link(class=source == "about" ? "active" : "", href='/about') #{__('about')}
+
+  // Right Menu
+  ul.nav.nav-tabs.bg-dark
+    li.nav-item.dropdown
+
+      // Language Dropdown
+      a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') #{__('language')}
+
+      // Dropdown Options
+      .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink', style="right: 0; left: auto;")
+        a.dropdown-item(href='/setlocale/br') #{__('portuguese')}
+        a.dropdown-item(href='/setlocale/en') #{__('english')}
+
+
+
+

@@ -1,0 +1,36 @@
+doctype html
+html(lang='pt-br')
+  head
+    // Import CSS dependencies
+    include includes/head.pug
+
+  body
+    // Import topbar
+    include includes/topbar.pug   
+
+  // Index Body
+  .container-fluid
+    .row
+      // Left Block -> Map, Charts and Stats
+      
+      .col-9
+        // Left-Top Block -> Cities Graph
+        include includes/main_cities_graph.pug
+
+        // Left-Bottom Block -> Stats and Graphs
+        .row
+          //Stats
+          .col-6
+            include includes/main_stats.pug
+
+          // Charts
+          .col-6
+            include includes/main_convergence_graphs.pug
+      
+      // Right Block -> Options Sidebar
+      .col-3
+        include includes/right_menu_index.pug
+
+  footer
+    // Import JS Dependencies
+    include includes/footer.pug

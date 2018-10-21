@@ -1,0 +1,42 @@
+// Stats container
+.jumbotron#main_stats(style=" padding:50px  ")
+  // Title
+  h1.display-4 #{__('run_statistics')}
+  
+  // Divider Bar
+  hr.my-4
+
+  // Step Number
+  p 
+    .lead(style='font-size:1em;') #{__('step_number')}: 
+    span#step_number 
+    span &nbsp;#{__('steps')}
+
+  // Time Elapsed
+  p 
+    .lead(style='font-size:1em') #{__('time_elapsed')}: 
+    span#time_elapsed 
+
+  // Shortest Path
+  p 
+    .lead(style='font-size:1em') #{__('shortest_path')}: 
+    span#shortest_path 
+    span &nbsp;u
+
+  // Longest Path
+  p 
+    .lead(style='font-size:1em') #{__('longest_path')}: 
+    span#longest_path 
+    span &nbsp;u
+  
+  // Memory Usage
+  p 
+    .lead(style='font-size:1em') #{__('ram_usage')}: 
+    span#ram_usage 
+    span &nbsp;#{__('nodes')}
+  
+  // Processor Usage
+  p 
+    .lead(style='font-size:1em') #{__('processor_usage')}: 
+    span#processor_usage 
+    span &nbsp;#{__('nodes_per_second')}
