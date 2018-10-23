@@ -1,3 +1,12 @@
+/*
+ * travelling_salesperson_sadbox
+ * https://github.com/vbob/travelling_salesperson_sandbox
+ * 
+ * Copyright (c) 2018 Vitor Barth
+ * Licensed under the MIT License
+ * 
+ */
+
 class City {
     /**
      *Creates an instance of City.
