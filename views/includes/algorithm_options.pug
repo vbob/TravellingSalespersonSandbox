@@ -1,0 +1,14 @@
+.jumbotron#algorithm_options
+    h5 #{__('general_options')}
+     hr.my-2
+
+    // Number of Cities Controller
+    .form-group
+        label(for='num_cities') #{__('num_cities')}
+        input#num_cities.form-control(type='number', placeholder='', min=4, required data-bind="value:replyNumber", value=4)
+
+    // Algorithms Controller (DONT FORCE IT HERE! IT IS CONTROLLED IN algorithms_manager.js)
+    .form-group
+        label(for='algorithms') #{__('algorithms')}
+        select#algorithms.form-control
+            option(selected='', value='') 

@@ -20,13 +20,11 @@ class Grid {
         d3.select(this.container)
             .style('padding', '0')
             .append('svg')
-            .attr('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight / 2}`)
+            .attr('viewBox', `0 0 ${window.innerWidth} ${window.innerHeight / 1.8}`)
             .append("rect")
             .attr("width", '100%')
             .attr("height", '100%')
             .style('fill', 'none')
-            .style('stroke-width', '10px')
-            .style('stroke', '#000')
 
     }
 }

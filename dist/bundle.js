@@ -117,7 +117,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "body {\r\n    background-color: #E0E0E0\r\n}\r\n\r\n.jumbotron {\r\n    border-radius: 0px ;\r\n    background-color: #fafafa;\r\n    box-shadow: 0px 0px 2px 3px rgba(0, 0, 0, .05);\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\nnav {\r\n   background-color: #3949ab;\r\n   margin-bottom: 5px;\r\n}", ""]);
+exports.push([module.i, "body {\r\n    background-color: #E0E0E0\r\n}\r\n\r\n.jumbotron {\r\n    border-radius: 0px ;\r\n    background-color: #fafafa;\r\n    box-shadow: 0px 0px 2px 3px rgba(0, 0, 0, .05);\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\nnav {\r\n   background-color: #00227b;\r\n   margin-bottom: 5px;\r\n}\r\n\r\n#main_stats {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n}\r\n\r\n#plots_container {\r\n     padding: 0;\r\n}\r\n\r\n#plots_container .nav {\r\n    background-color: #6f74dd;\r\n}\r\n\r\n#controls {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n}\r\n\r\n#algorithm_options {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n}\r\n\r\n#btn_start {\r\n    background: #388E3C;\r\n}\r\n\r\n#btn_pause {\r\n    background: #FF9800;\r\n}\r\n\r\n#btn_stop {\r\n    background: #D32F2F;\r\n}\r\n\r\n#btn_backward {\r\n    background: #03A9F4;\r\n}\r\n\r\n#btn_forward {\r\n    background: #03A9F4;\r\n}\r\n\r\n#btn_save {\r\n    background: #6f74dd;\r\n}", ""]);
 
 // exports
 
@@ -28842,7 +28842,7 @@ function () {
   _createClass(Grid, [{
     key: "draw",
     value: function draw() {
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"](this.container).style('padding', '0').append('svg').attr('viewBox', "0 0 ".concat(window.innerWidth, " ").concat(window.innerHeight / 2)).append("rect").attr("width", '100%').attr("height", '100%').style('fill', 'none').style('stroke-width', '10px').style('stroke', '#000');
+      d3__WEBPACK_IMPORTED_MODULE_0__["select"](this.container).style('padding', '0').append('svg').attr('viewBox', "0 0 ".concat(window.innerWidth, " ").concat(window.innerHeight / 1.8)).append("rect").attr("width", '100%').attr("height", '100%').style('fill', 'none');
     }
   }]);
 

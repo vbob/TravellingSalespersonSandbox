@@ -11,6 +11,53 @@ body {
 }
 
 nav {
-   background-color: #3949ab;
+   background-color: #00227b;
    margin-bottom: 5px;
+}
+
+#main_stats {
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+#plots_container {
+     padding: 0;
+}
+
+#plots_container .nav {
+    background-color: #6f74dd;
+}
+
+#controls {
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+#algorithm_options {
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+#btn_start {
+    background: #388E3C;
+}
+
+#btn_pause {
+    background: #FF9800;
+}
+
+#btn_stop {
+    background: #D32F2F;
+}
+
+#btn_backward {
+    background: #03A9F4;
+}
+
+#btn_forward {
+    background: #03A9F4;
+}
+
+#btn_save {
+    background: #6f74dd;
 }

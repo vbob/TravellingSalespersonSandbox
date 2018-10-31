@@ -17,7 +17,7 @@
 
         // Forward Button
         button#btn_backward.btn.btn-raised(type='button', data-toggle='tooltip', data-placement="bottom", title=__('backward'))
-            i#btn_backward_icon.fas.fa-fast-backward 
+            i#btn_backward_icon.fas.fa-step-backward 
         a &nbsp;
 
         // Backward Button
@@ -28,3 +28,17 @@
         // Save Button
         button#btn_save.btn.btn-raised(type='button', data-toggle='tooltip', data-placement="bottom", title=__('save'))
             i.fas.fa-save 
+
+    br
+
+    // Execution Speed   
+    #exec_speed_container
+        p
+            .lead(style='font-size:.75em;') #{__('exec_speed')}:
+            span#exec_speed 
+            span %
+
+    #status_container
+        p
+            .lead(style='font-size:.75em;') #{__('status')}:
+            span#status Parado

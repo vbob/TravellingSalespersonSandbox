@@ -15,21 +15,23 @@ html(lang='pt-br')
       
       .col-9
         // Left-Top Block -> Cities Graph
-        include includes/main_cities_graph.pug
+        include includes/cities_grid.pug
 
         // Left-Bottom Block -> Stats and Graphs
         .row
           //Stats
           .col-6
-              include includes/main_stats.pug
+              include includes/stats.pug
 
           // Charts
           .col-6
-              include includes/main_convergence_graphs.pug
+              include includes/convergence_plots.pug
       
       // Right Block -> Options Sidebar
       .col-3
           include includes/controls.pug
+          include includes/algorithm_options.pug
+          include includes/heuristic_options.pug
 
   footer
     // Import JS Dependencies

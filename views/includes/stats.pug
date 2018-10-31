@@ -1,42 +1,42 @@
 // Stats container
 .jumbotron#main_stats
   // Title
-  h1.display-4 #{__('run_statistics')}
+  h4 #{__('run_statistics')}
   
   // Divider Bar
-  hr.my-4
+  hr.my-2
 
   // Step Number
   p 
-    .lead(style='font-size:1em;') #{__('step_number')}: 
+    .lead(style='font-size:0.75em;') #{__('step_number')}: 
     span#step_number 
     span &nbsp;#{__('steps')}
 
   // Time Elapsed
   p 
-    .lead(style='font-size:1em') #{__('time_elapsed')}: 
+    .lead(style='font-size:0.75em') #{__('time_elapsed')}: 
     span#time_elapsed 
 
   // Shortest Path
   p 
-    .lead(style='font-size:1em') #{__('shortest_path')}: 
+    .lead(style='font-size:0.75em') #{__('shortest_path')}: 
     span#shortest_path 
     span &nbsp;u
 
   // Longest Path
   p 
-    .lead(style='font-size:1em') #{__('longest_path')}: 
+    .lead(style='font-size:0.75em') #{__('longest_path')}: 
     span#longest_path 
     span &nbsp;u
   
   // Memory Usage
   p 
-    .lead(style='font-size:1em') #{__('ram_usage')}: 
+    .lead(style='font-size:0.75em') #{__('ram_usage')}: 
     span#ram_usage 
     span &nbsp;#{__('nodes')}
   
   // Processor Usage
   p 
-    .lead(style='font-size:1em') #{__('processor_usage')}: 
+    .lead(style='font-size:0.75em') #{__('processor_usage')}: 
     span#processor_usage 
     span &nbsp;#{__('nodes_per_second')}
