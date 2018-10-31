@@ -7,7 +7,10 @@
  * 
  */
 
-// Cities Map container
-class Grid {
-    
-}
+import css1 from './css/cities_map.css'
+import css2 from './css/style.css'
+
+import { Grid } from './grid';
+
+let grid = new Grid('#cities_map_container', 1800, 514)
+grid.draw()

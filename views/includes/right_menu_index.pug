@@ -1,39 +1,6 @@
-// Jump one line to not be just about topbar
-br
-
 // Control Panel 
 span#control_panel_container(data-toggle='tooltip', data-placement="left")
-    form#control_panel(tabindex='0')
-
-        // Start Button
-        button#btn_start.btn.btn-raised(type='button', data-toggle='tooltip', data-placement="bottom", title=__('start'))
-            i.fas.fa-play  
-        a &nbsp;
-
-        // Pause Button
-        button#btn_pause.btn.btn-raised(type='button', data-toggle='tooltip', data-placement="bottom", title=__('pause'))
-            i.fas.fa-pause
-        a &nbsp;
-
-        // Stop Button
-        button#btn_stop.btn.btn-raised(type='button', data-toggle='tooltip', data-placement="bottom", title=__('stop'))
-            i.fas.fa-stop 
-        a &nbsp;
-
-        // Forward Button
-        button#btn_backward.btn.btn-raised(type='button', data-toggle='tooltip', data-placement="bottom", title=__('backward'))
-           i#btn_backward_icon.fas.fa-fast-backward 
-        a &nbsp;
-
-        // Backward Button
-        button#btn_forward.btn.btn-raised(type='button', data-toggle='tooltip', data-placement="bottom", title=__('forward'))
-            i#btn_forward_icon.fas.fa-step-forward 
-        a &nbsp;
-
-        // Save Button
-        button#btn_save.btn.btn-raised(type='button', data-toggle='tooltip', data-placement="bottom", title=__('save'))
-            i.fas.fa-save 
-
+    
 // Execution Speed   
 #exec_speed_container
     .lead(style='font-size:1em;') #{__('exec_speed')}:

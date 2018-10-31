@@ -91,6 +91,7 @@ app.get('/algorithms/*', function (req, res) {
 
 // Escape Route
 app.get('/*', function (req, res) {
-    res.sendFile(__dirname+'/public_html/'+req.params[0])
+    res.sendFile(__dirname+'/dist/'+req.params[0])
 })
 
+module.exports = app

@@ -1,5 +1,5 @@
 /*
- * travelling_salesperson_sadbox
+ * travelling_salesperson_sandbox
  * https://github.com/vbob/travelling_salesperson_sandbox
  * 
  * Copyright (c) 2018 Vitor Barth

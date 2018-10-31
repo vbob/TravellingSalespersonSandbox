@@ -48,10 +48,8 @@ class City {
         if (!(otherCity instanceof City))
             throw new Error('Not a city')
 
-        return (this.id == otherCity.id) && (this.x == otherCity.x) && (this.y==otherCity.y)
+        return (this.id == otherCity.id) && (this.x == otherCity.x) && (this.y == otherCity.y)
     }
 }
 
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-    module.exports = City;
-}
+export { City }
