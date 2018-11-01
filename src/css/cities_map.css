@@ -5,14 +5,13 @@
 }
 
 .map circle.hover {
-  fill: #b3e5fc;
+  fill: #ff94c2;
 }
 
 /* City Color when Draggin */
 
 .map circle.dragging {
-  fill: red;
-  stroke: brown;
+  fill: #ba2d65;
 }
 
 .map circle.initial_city {
@@ -37,5 +36,17 @@ svg text {
   user-select: none;
   text-anchor: middle;
   fill: white;
-  alignment-baseline: middle;
+}
+
+
+.bottom-text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-anchor: middle;
+  fill: black;
+  alignment-baseline: baseline;
+  font-size: 0.85em;
+  fill: #9E9E9E
 }

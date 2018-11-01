@@ -10,19 +10,21 @@
 import * as d3 from 'd3'
 import { City } from './city'
 
+let _this;
+
 class Grid {
     constructor(container) {
         this.container = container
         this.citiesArray = new Array()
         this.cityRadius = 12
         this.width = 1600
-        this.height = 500
+        this.height = 400
 
         this.drag = d3.drag()
             .subject(function (d) { return d; })
-            .on("start", this.dragstarted)
+            .on("start", this.dragStarted)
             .on("drag", this.dragged)
-            .on("end", this.dragended);
+            .on("end", this.dragEnded);
 
 
         this.mouseenter = (city) => {
@@ -34,6 +36,8 @@ class Grid {
             d3.select(`#city${city.id}`)
                 .classed("hover", false);
         }
+
+        _this = this;
     }
 
     drawContainer() {
@@ -50,6 +54,15 @@ class Grid {
             .attr("width", '100%')
             .attr("height", '100%')
             .style('fill', 'none')
+
+        d3.select(this.container)
+            .select('svg')
+            .append('g')
+            .append('text')
+            .attr('class', 'bottom-text')
+            .text('')
+            .attr("transform", function (d) { return "translate(" + _this.width / 2 + "," + (_this.height - 5) + ")" })
+
     }
 
     drawCities() {
@@ -79,12 +92,10 @@ class Grid {
             .each((d) => {
                 d3.select(`#city${d.id}_cont`)
                     .append('text')
-                    .style('font-size',  this.cityRadius*1.5)
+                    .style('font-size', this.cityRadius * 1.5)
+                    .attr("dy", ".35em")
                     .text((d) => { return d.id })
             })
-
-
-
     }
 
     draw() {
@@ -101,49 +112,50 @@ class Grid {
 
     removeCity(city) {
         this.citiesArray = this.citiesArray.filter((item) => {
-            return item !== city
+            return !city.equals(item)
         })
 
         if (this.citiesArray.length > 0)
             this.drawCities()
     }
 
-    dragstarted(d) {
+    dragStarted(d) {
         d3.event.sourceEvent.stopPropagation();
-        d3.select(this).classed("dragging", true);
+        d3.select(this).select('circle').classed("dragging", true);
+        console.log(d)
+        //d3.select(
     }
 
-
-    /**
-     * Event handler while dragging
-     *
-     * @param {*} d
-     */
     dragged(d) {
-        // Define border limits
-        if (d3.event.x >= 0 && d3.event.x <= this.width - this.cityRadius && d3.event.y >= 0 && d3.event.y <= this.height - this.cityRadius) {
-            d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
-            div.style("opacity", .9);
-
-            // Show current position in coordinates indicator
-            div.html('x: ' + Number(d3.select(this).attr("cx")).toFixed(0) + ', y: ' + 'x: ' + Number(d3.select(this).attr("cy")).toFixed(0))
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-
-            updateConnections()
-
+        let x = () => {
+            if (d3.event.x < (0 + _this.cityRadius))
+                return 0 + _this.cityRadius
+            else if ((d3.event.x > (_this.width - _this.cityRadius)))
+                return _this.width - _this.cityRadius
+            else return d3.event.x
         }
 
+        let y = () => {
+            if (d3.event.y < (0 + _this.cityRadius))
+                return 0 + _this.cityRadius
+            else if ((d3.event.y > (_this.height - _this.cityRadius)))
+                return _this.height - _this.cityRadius
+            else return d3.event.y
+        }
+
+        d.x = x()
+        d.y = y()
+
+        d3.select(this).attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")" })
+        d3.select('.bottom-text').text(`x: ${d.x.toFixed(0)} y: ${d.y.toFixed(0)}`)
+
     }
 
-    /**
-     * Event handler when drag ends
-     *
-     * @param {*} d
-     */
-    dragended(d) {
-        d3.select(this).classed("dragging", false);
+    dragEnded(d) {
+        d3.select(this).select('circle').classed("dragging", false);
+        d3.select('.bottom-text').text('')
     }
+
 }
 
 export { Grid }

@@ -1,30 +1,61 @@
 // Topbar
-nav.navbar.navbar-expand-lg(style="height:65px !important;")
+  nav.navbar.navbar-expand-lg
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+      span.navbar-toggler-icon
 
-  // Left Title
-  a.navbar-brand(href='#').text-light #{__('title')}
+    // Left Menus
+    #navbarSupportedContent.collapse.navbar-collapse
+      ul.nav.nav-tabs
+        // Index
+        li.nav-item
+          a.nav-link.text-light(class=source == "index" ? "active" : "", href='/') #{__('index')}
 
-  // Left Menus
-  #navbarSupportedContent.collapse.navbar-collapse
+        // Options
+        li.nav-item
+          a.nav-link.text-light(class=source == "options" ? "active" : "", href='/options') #{__('options')}
+
+        // History
+        li.nav-item
+          a.nav-link.text-light(class=source == "history" ? "active" : "", href='/history') #{__('history')}
+
+        //About
+        li.nav-item
+          a.nav-link.text-light(class=source == "about" ? "active" : "", href='/about') #{__('about')}
+
+    // Right Menu
     ul.nav.nav-tabs
-      // Index
-      li.nav-item
-        a.nav-link.text-light(class=source == "index" ? "active" : "", href='/') #{__('index')}
+      li.nav-item.dropdown
 
-      // Options
-      li.nav-item
-        a.nav-link.text-light(class=source == "options" ? "active" : "", href='/options') #{__('options')}
+        // Language Dropdown
+        a#navbarDropdownMenuLink.nav-link.dropdown-toggle.text-light(href='#', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') #{__('language')}
 
-      // History
+        // Dropdown Options
+        .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink', style="right: 0; left: auto;")
+          a.dropdown-item(href='/setlocale/br') #{__('portuguese')}
+          a.dropdown-item(href='/setlocale/en') #{__('english')}
+          
+nav.navbar.navbar-expand-lg.navbar-dark.bg-primary(style="background-color: #00227b;")
+ 
+  button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+    span.navbar-toggler-icon
+  #navbarNav.collapse.navbar-collapse
+    ul.navbar-nav
       li.nav-item
-        a.nav-link.text-light(class=source == "history" ? "active" : "", href='/history') #{__('history')}
+        a.nav-link(class=source == "index" ? "active" : "", href='/') #{__('index')}
 
-      //About
-      li.nav-item
-        a.nav-link.text-light(class=source == "about" ? "active" : "", href='/about') #{__('about')}
+        // Options
+        li.nav-item
+          a.nav-link(class=source == "options" ? "active" : "", href='/options') #{__('options')}
 
-  // Right Menu
-  ul.nav.nav-tabs
+        // History
+        li.nav-item
+          a.nav-link(class=source == "history" ? "active" : "", href='/history') #{__('history')}
+
+        //About
+        li.nav-item
+          a.nav-link(class=source == "about" ? "active" : "", href='/about') #{__('about')}
+
+  ul.navbar-nav
     li.nav-item.dropdown
 
       // Language Dropdown
@@ -34,6 +65,8 @@ nav.navbar.navbar-expand-lg(style="height:65px !important;")
       .dropdown-menu.dropdown-menu-right(aria-labelledby='navbarDropdownMenuLink', style="right: 0; left: auto;")
         a.dropdown-item(href='/setlocale/br') #{__('portuguese')}
         a.dropdown-item(href='/setlocale/en') #{__('english')}
+
+
 
 
 

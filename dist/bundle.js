@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "/* City Color */\r\n\r\n.map circle {\r\n  fill: #f06292;\r\n}\r\n\r\n.map circle.hover {\r\n  fill: #b3e5fc;\r\n}\r\n\r\n/* City Color when Draggin */\r\n\r\n.map circle.dragging {\r\n  fill: red;\r\n  stroke: brown;\r\n}\r\n\r\n.map circle.initial_city {\r\n  fill: greenyellow;\r\n  stroke: green;\r\n}\r\n\r\n/* Grid Color */\r\n\r\n.axis line {\r\n  fill: none;\r\n  stroke-width: 0px;\r\n  /* dont show grid */\r\n  stroke: #bbb;\r\n  shape-rendering: crispEdges;\r\n}\r\n\r\nsvg text {\r\n  -webkit-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n  text-anchor: middle;\r\n  fill: white;\r\n  alignment-baseline: middle;\r\n}", ""]);
+exports.push([module.i, "/* City Color */\r\n\r\n.map circle {\r\n  fill: #f06292;\r\n}\r\n\r\n.map circle.hover {\r\n  fill: #ff94c2;\r\n}\r\n\r\n/* City Color when Draggin */\r\n\r\n.map circle.dragging {\r\n  fill: #ba2d65;\r\n}\r\n\r\n.map circle.initial_city {\r\n  fill: greenyellow;\r\n  stroke: green;\r\n}\r\n\r\n/* Grid Color */\r\n\r\n.axis line {\r\n  fill: none;\r\n  stroke-width: 0px;\r\n  /* dont show grid */\r\n  stroke: #bbb;\r\n  shape-rendering: crispEdges;\r\n}\r\n\r\nsvg text {\r\n  -webkit-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n  text-anchor: middle;\r\n  fill: white;\r\n}\r\n\r\n\r\n.bottom-text {\r\n  -webkit-user-select: none;\r\n  -moz-user-select: none;\r\n  -ms-user-select: none;\r\n  user-select: none;\r\n  text-anchor: middle;\r\n  fill: black;\r\n  alignment-baseline: baseline;\r\n  font-size: 0.85em;\r\n  fill: #9E9E9E\r\n}", ""]);
 
 // exports
 
@@ -117,7 +117,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "body {\r\n    background-color: #E0E0E0\r\n}\r\n\r\n.jumbotron {\r\n    border-radius: 0px ;\r\n    background-color: #fafafa;\r\n    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, .05);\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\nnav {\r\n   background-color: #00227b;\r\n   margin-bottom: 5px;\r\n}\r\n\r\n#main_stats {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n}\r\n\r\n#plots_container {\r\n     padding: 0;\r\n}\r\n\r\n#plots_container .nav {\r\n    background-color: #1976d2;\r\n}\r\n\r\n#controls {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\n#algorithm_options {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\n#btn_start {\r\n    background: #388E3C;\r\n}\r\n\r\n#btn_pause {\r\n    background: #FF9800;\r\n}\r\n\r\n#btn_stop {\r\n    background: #D32F2F;\r\n}\r\n\r\n#btn_backward {\r\n    background: #03A9F4;\r\n}\r\n\r\n#btn_forward {\r\n    background: #03A9F4;\r\n}\r\n\r\n#btn_save {\r\n    background: #6f74dd;\r\n}", ""]);
+exports.push([module.i, "html, body {\r\n    max-width: 100%;\r\n    overflow-x: hidden;\r\n}\r\n\r\nbody {\r\n    background-color: #E0E0E0\r\n}\r\n\r\n.jumbotron {\r\n    border-radius: 0px;\r\n    background-color: #fafafa;\r\n    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, .05);\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\nnav .bg-light {\r\n    background-color: #00227b;\r\n}\r\n\r\n.bg-primary {\r\n    background: #00227b !important; \r\n}\r\n\r\nnav .navbar-light {\r\n    background-color: #00227b;\r\n}\r\n\r\n.nav {\r\n    background-color: #00227b;\r\n}\r\n\r\n#main_stats {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n}\r\n\r\n#plots_container {\r\n    padding: 0;\r\n}\r\n\r\n#plots_container .nav {\r\n    background-color: #1976d2;\r\n}\r\n\r\n#controls {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\n#algorithm_options {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\n#btn_start {\r\n    background: #388E3C;\r\n}\r\n\r\n#btn_pause {\r\n    background: #FF9800;\r\n}\r\n\r\n#btn_stop {\r\n    background: #D32F2F;\r\n}\r\n\r\n#btn_backward {\r\n    background: #03A9F4;\r\n}\r\n\r\n#btn_forward {\r\n    background: #03A9F4;\r\n}\r\n\r\n#btn_save {\r\n    background: #6f74dd;\r\n}", ""]);
 
 // exports
 
@@ -28910,6 +28910,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
+var _this;
+
 var Grid =
 /*#__PURE__*/
 function () {
@@ -28920,10 +28922,10 @@ function () {
     this.citiesArray = new Array();
     this.cityRadius = 12;
     this.width = 1600;
-    this.height = 500;
+    this.height = 400;
     this.drag = d3__WEBPACK_IMPORTED_MODULE_0__["drag"]().subject(function (d) {
       return d;
-    }).on("start", this.dragstarted).on("drag", this.dragged).on("end", this.dragended);
+    }).on("start", this.dragStarted).on("drag", this.dragged).on("end", this.dragEnded);
 
     this.mouseenter = function (city) {
       d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(city.id)).classed("hover", true);
@@ -28932,6 +28934,8 @@ function () {
     this.mouseleave = function (city) {
       d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(city.id)).classed("hover", false);
     };
+
+    _this = this;
   }
 
   _createClass(Grid, [{
@@ -28939,11 +28943,14 @@ function () {
     value: function drawContainer() {
       d3__WEBPACK_IMPORTED_MODULE_0__["select"](this.container).select('svg').remove();
       d3__WEBPACK_IMPORTED_MODULE_0__["select"](this.container).style('padding', '0').append('svg').attr("preserveAspectRatio", "xMinYMin meet").attr('viewBox', "0 0 ".concat(this.width, " ").concat(this.height)).append("rect").attr("width", '100%').attr("height", '100%').style('fill', 'none');
+      d3__WEBPACK_IMPORTED_MODULE_0__["select"](this.container).select('svg').append('g').append('text').attr('class', 'bottom-text').text('').attr("transform", function (d) {
+        return "translate(" + _this.width / 2 + "," + (_this.height - 5) + ")";
+      });
     }
   }, {
     key: "drawCities",
     value: function drawCities() {
-      var _this = this;
+      var _this2 = this;
 
       d3__WEBPACK_IMPORTED_MODULE_0__["select"](this.container).selectAll('.map').remove();
       d3__WEBPACK_IMPORTED_MODULE_0__["select"](this.container).select('svg').append('g').attr("class", "map").selectAll("circle").data(this.citiesArray).enter().append('g').attr("id", function (d) {
@@ -28954,7 +28961,7 @@ function () {
         return "city".concat(d.id);
       });
       d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"]('.city_cont').each(function (d) {
-        d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(d.id, "_cont")).append('text').style('font-size', _this.cityRadius * 1.5).text(function (d) {
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(d.id, "_cont")).append('text').style('font-size', _this2.cityRadius * 1.5).attr("dy", ".35em").text(function (d) {
           return d.id;
         });
       });
@@ -28975,44 +28982,40 @@ function () {
     key: "removeCity",
     value: function removeCity(city) {
       this.citiesArray = this.citiesArray.filter(function (item) {
-        return item !== city;
+        return !city.equals(item);
       });
       if (this.citiesArray.length > 0) this.drawCities();
     }
   }, {
-    key: "dragstarted",
-    value: function dragstarted(d) {
+    key: "dragStarted",
+    value: function dragStarted(d) {
       d3__WEBPACK_IMPORTED_MODULE_0__["event"].sourceEvent.stopPropagation();
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).classed("dragging", true);
+      d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).select('circle').classed("dragging", true);
+      console.log(d); //d3.select(
     }
-    /**
-     * Event handler while dragging
-     *
-     * @param {*} d
-     */
-
   }, {
     key: "dragged",
     value: function dragged(d) {
-      // Define border limits
-      if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].x >= 0 && d3__WEBPACK_IMPORTED_MODULE_0__["event"].x <= this.width - this.cityRadius && d3__WEBPACK_IMPORTED_MODULE_0__["event"].y >= 0 && d3__WEBPACK_IMPORTED_MODULE_0__["event"].y <= this.height - this.cityRadius) {
-        d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).attr("cx", d.x = d3__WEBPACK_IMPORTED_MODULE_0__["event"].x).attr("cy", d.y = d3__WEBPACK_IMPORTED_MODULE_0__["event"].y);
-        div.style("opacity", .9); // Show current position in coordinates indicator
+      var x = function x() {
+        if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].x < 0 + _this.cityRadius) return 0 + _this.cityRadius;else if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].x > _this.width - _this.cityRadius) return _this.width - _this.cityRadius;else return d3__WEBPACK_IMPORTED_MODULE_0__["event"].x;
+      };
 
-        div.html('x: ' + Number(d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).attr("cx")).toFixed(0) + ', y: ' + 'x: ' + Number(d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).attr("cy")).toFixed(0)).style("left", d3__WEBPACK_IMPORTED_MODULE_0__["event"].pageX + "px").style("top", d3__WEBPACK_IMPORTED_MODULE_0__["event"].pageY - 28 + "px");
-        updateConnections();
-      }
+      var y = function y() {
+        if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].y < 0 + _this.cityRadius) return 0 + _this.cityRadius;else if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].y > _this.height - _this.cityRadius) return _this.height - _this.cityRadius;else return d3__WEBPACK_IMPORTED_MODULE_0__["event"].y;
+      };
+
+      d.x = x();
+      d.y = y();
+      d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).attr("transform", function (d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+      d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.bottom-text').text("x: ".concat(d.x.toFixed(0), " y: ").concat(d.y.toFixed(0)));
     }
-    /**
-     * Event handler when drag ends
-     *
-     * @param {*} d
-     */
-
   }, {
-    key: "dragended",
-    value: function dragended(d) {
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).classed("dragging", false);
+    key: "dragEnded",
+    value: function dragEnded(d) {
+      d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).select('circle').classed("dragging", false);
+      d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.bottom-text').text('');
     }
   }]);
 
