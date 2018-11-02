@@ -10,8 +10,11 @@
 import css1 from './css/cities_map.css'
 import css2 from './css/style.css'
 
+import "babel-polyfill"
+
 import { Grid } from './grid';
 import { City } from './city'
+import { ControlPanel } from './control_panel';
 
 let grid = new Grid('#cities_map_container')
 grid.draw()
@@ -29,3 +32,5 @@ grid.addCity(city3)
 grid.addCity(city4)
 grid.addCity(city5)
 grid.addCity(city6)
+
+let controlPanel = new ControlPanel('algorithms', 'heuristics')

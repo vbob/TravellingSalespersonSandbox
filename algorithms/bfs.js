@@ -1,3 +1,10 @@
+class BFS {
+    constructor() {
+        this.border = new Array()
+        this.border.push(new new SNode(current_run.initial_state, null, null, 0))
+    }
+}
+
 name = 'Breadth-First Search (BFS)'
 
 function bfs_init() {

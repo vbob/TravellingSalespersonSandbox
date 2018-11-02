@@ -7,7 +7,16 @@
  * 
  */
 
-// Cities Map container
-class Grid {
-    
+import { BFS } from './bfs'
+
+class AlgorithmManager {
+
+    constructor() {
+        this.algorithmList = [
+            BFS
+        ]
+    }
+
 }
+
+export { AlgorithmManager }

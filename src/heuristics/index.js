@@ -7,12 +7,18 @@
  * 
  */
 
-class TSS {
+import {
+    MinimumSpanningTree
+} from "./mst";
+
+class HeuristicsManager {
     constructor() {
-        this.cities = new Array()
+        this.heuristicsList = [
+            MinimumSpanningTree
+        ]
     }
 }
 
-if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-    module.exports = TSS;
+export {
+    HeuristicsManager
 }
