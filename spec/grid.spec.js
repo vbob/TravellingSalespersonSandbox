@@ -9,6 +9,11 @@ describe('Grid', function () {
         c.render()
     })
 
+    it('should select something', function () {
+        let cont = d3.select('svg')
+        console.log(cont)
+    })
+
     afterEach(function () {
         d3.selectAll('svg').remove();
     });
