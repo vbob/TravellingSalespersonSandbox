@@ -15,8 +15,9 @@ body {
     margin-top: 5px;
 }
 
-nav .bg-light {
+nav {
     background-color: #00227b;
+    margin-bottom: 5px;
 }
 
 .bg-primary {
