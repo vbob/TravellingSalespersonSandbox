@@ -42,56 +42,44 @@ app.set('view engine', 'pug') // view engine
 app.set('views', './views') // view engine folder
 
 // Initialize routes
-app.get('/', function (req, res) {
+app.get('/', function(req, res) {
     res.render('index', {
         // Topbar reference
         source: "index"
     })
 })
 
-app.get('/options', function (req, res) {
+app.get('/options', function(req, res) {
     res.render('options', {
         source: "options"
     })
 })
 
-app.get('/history', function (req, res) {
+app.get('/history', function(req, res) {
     res.render('history', {
         source: "history"
     })
 })
 
-app.get('/about', function (req, res) {
+app.get('/about', function(req, res) {
     res.render('about', {
         source: "about"
     })
 })
 
-app.get('/about', function (req, res) {
+app.get('/about', function(req, res) {
     res.render('about', {
         source: "about"
     })
 })
 
 // Change locale
-app.get('/setlocale/:locale', function (req, res) {
+app.get('/setlocale/:locale', function(req, res) {
     res.cookie('locale', req.params.locale);
     res.redirect('back');
 });
 
-// Algorithms Management
-app.get('/algorithms/list', function (req, res) {
-    let alg_list = require('./algorithms').algorithms_files
-    res.send(alg_list)
-})
-
-app.get('/algorithms/*', function (req, res) {
-    res.sendFile(__dirname+'/algorithms/'+req.params[0]+'.js')
-})
-
 // Escape Route
-app.get('/*', function (req, res) {
-    res.sendFile(__dirname+'/dist/'+req.params[0])
+app.get('/*', function(req, res) {
+    res.sendFile(__dirname + '/dist/' + req.params[0])
 })
-
-module.exports = app
