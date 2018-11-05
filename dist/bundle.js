@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "/* City Color */\r\n\r\n.map circle {\r\n    fill: #1976d2\r\n}\r\n\r\n.map circle.hover {\r\n    fill: #CC769B;\r\n}\r\n\r\n\r\n/* City Color when Draggin */\r\n\r\n.map circle.dragging {\r\n    fill: #ba2d65;\r\n}\r\n\r\n.map circle.initial_city {\r\n    fill: greenyellow;\r\n    stroke: green;\r\n}\r\n\r\n\r\n/* Grid Color */\r\n\r\n.axis line {\r\n    fill: none;\r\n    stroke-width: 0px;\r\n    /* dont show grid */\r\n    stroke: #bbb;\r\n    shape-rendering: crispEdges;\r\n}\r\n\r\nsvg text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    fill: white;\r\n}\r\n\r\n.bottom-text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    alignment-baseline: baseline;\r\n    fill: #9E9E9E\r\n}\r\n\r\n.city_d {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: start;\r\n    alignment-baseline: middle;\r\n    fill: #9E9E9E\r\n}", ""]);
+exports.push([module.i, "/* City Color */\n\n.map circle {\n    fill: #1976d2\n}\n\n.map circle.hover {\n    fill: #CC769B;\n}\n\n\n/* City Color when Draggin */\n\n.map circle.dragging {\n    fill: #ba2d65;\n}\n\n.map circle.initial_city {\n    fill: greenyellow;\n    stroke: green;\n}\n\n\n/* Grid Color */\n\n.axis line {\n    fill: none;\n    stroke-width: 0px;\n    /* dont show grid */\n    stroke: #bbb;\n    shape-rendering: crispEdges;\n}\n\nsvg text {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    text-anchor: middle;\n    fill: white;\n}\n\n.bottom-text {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    text-anchor: middle;\n    alignment-baseline: baseline;\n    fill: #9E9E9E\n}\n\n.city_d {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    text-anchor: start;\n    alignment-baseline: middle;\n    fill: #9E9E9E\n}", ""]);
 
 // exports
 
@@ -117,7 +117,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "html,\r\nbody {\r\n    max-width: 100%;\r\n    overflow-x: hidden;\r\n}\r\n\r\nbody {\r\n    font-size: 0.8rem;\r\n}\r\n\r\nbody {\r\n    background-color: #E0E0E0\r\n}\r\n\r\n.jumbotron {\r\n    border-radius: 0px;\r\n    background-color: #fafafa;\r\n    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, .05);\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\nnav {\r\n    background-color: #00227b;\r\n    margin-bottom: 5px;\r\n}\r\n\r\n.bg-primary {\r\n    background: #00227b !important;\r\n}\r\n\r\nnav .navbar-light {\r\n    background-color: #00227b;\r\n}\r\n\r\n.nav {\r\n    background-color: #00227b;\r\n}\r\n\r\n#main_stats {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n}\r\n\r\n#plots_container {\r\n    padding: 0;\r\n}\r\n\r\nbody h4 {\r\n    font-size: 1.1rem;\r\n}\r\n\r\n#plots_container .nav-link {\r\n    padding-top: .6rem;\r\n    padding-bottom: .6rem;\r\n    font-size: 0.6rem;\r\n}\r\n\r\n.navbar-nav .nav-link {\r\n    padding-top: 0.3rem;\r\n    padding-bottom: .3rem;\r\n    font-size: 0.6rem;\r\n    margin-top: 0\r\n}\r\n\r\n.navbar-nav {\r\n    height: 1.2rem;\r\n}\r\n\r\n#navbarNav {\r\n    padding-top: 0rem;\r\n}\r\n\r\n#plots_container .nav {\r\n    background-color: #C774A3;\r\n}\r\n\r\n#controls {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\n#algorithm_options {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\n#heuristic_options {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\n#btn_start {\r\n    background: #388E3C;\r\n}\r\n\r\n#btn_pause {\r\n    background: #FF9800;\r\n}\r\n\r\n#btn_stop {\r\n    background: #D32F2F;\r\n}\r\n\r\n#btn_backward {\r\n    background: #03A9F4;\r\n}\r\n\r\n#btn_forward {\r\n    background: #03A9F4;\r\n}\r\n\r\n#btn_save {\r\n    background: #6f74dd;\r\n}\r\n\r\ninput::-webkit-outer-spin-button,\r\ninput::-webkit-inner-spin-button {\r\n    /* display: none; <- Crashes Chrome on hover */\r\n    -webkit-appearance: none;\r\n    margin: 0;\r\n    /* <-- Apparently some margin are still there even though it's hidden */\r\n}\r\n\r\ninput[type='number'] {\r\n    -moz-appearance: textfield;\r\n}\r\n\r\n#form_num_cities input {\r\n    font-size: .7rem;\r\n    height: 2.4em\r\n}\r\n\r\n#form_algorithms option {\r\n    font-size: .7rem;\r\n    height: .7em\r\n}\r\n\r\n#form_algorithms select {\r\n    font-size: .7rem;\r\n    height: 2.4em\r\n}\r\n\r\n#form_heuristics option {\r\n    font-size: .7rem;\r\n    height: 2.4em\r\n}\r\n\r\n#form_heuristics select {\r\n    font-size: .7rem;\r\n    height: 2.4em\r\n}", ""]);
+exports.push([module.i, "html,\nbody {\n    max-width: 100%;\n    overflow-x: hidden;\n}\n\nbody {\n    font-size: 0.8rem;\n}\n\nbody {\n    background-color: #E0E0E0\n}\n\n.jumbotron {\n    border-radius: 0px;\n    background-color: #fafafa;\n    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, .05);\n    margin-bottom: 5px;\n    margin-top: 5px;\n}\n\nnav {\n    background-color: #00227b;\n    margin-bottom: 5px;\n}\n\n.bg-primary {\n    background: #00227b !important;\n}\n\nnav .navbar-light {\n    background-color: #00227b;\n}\n\n.nav {\n    background-color: #00227b;\n}\n\n#main_stats {\n    padding-top: 5%;\n    padding-bottom: 5%;\n}\n\n#plots_container {\n    padding: 0;\n}\n\nbody h4 {\n    font-size: 1.1rem;\n}\n\n#plots_container .nav-link {\n    padding-top: .6rem;\n    padding-bottom: .6rem;\n    font-size: 0.6rem;\n}\n\n.navbar-nav .nav-link {\n    padding-top: 0.3rem;\n    padding-bottom: .3rem;\n    font-size: 0.6rem;\n    margin-top: 0\n}\n\n.navbar-nav {\n    height: 1.2rem;\n}\n\n#navbarNav {\n    padding-top: 0rem;\n}\n\n#plots_container .nav {\n    background-color: #C774A3;\n}\n\n#controls {\n    padding-top: 5%;\n    padding-bottom: 5%;\n    margin-bottom: 5px;\n    margin-top: 5px;\n}\n\n#algorithm_options {\n    padding-top: 5%;\n    padding-bottom: 5%;\n    margin-bottom: 5px;\n    margin-top: 5px;\n}\n\n#heuristic_options {\n    padding-top: 5%;\n    padding-bottom: 5%;\n    margin-bottom: 5px;\n    margin-top: 5px;\n}\n\n#btn_start {\n    background: #388E3C;\n}\n\n#btn_pause {\n    background: #FF9800;\n}\n\n#btn_stop {\n    background: #D32F2F;\n}\n\n#btn_backward {\n    background: #03A9F4;\n}\n\n#btn_forward {\n    background: #03A9F4;\n}\n\n#btn_save {\n    background: #6f74dd;\n}\n\ninput::-webkit-outer-spin-button,\ninput::-webkit-inner-spin-button {\n    /* display: none; <- Crashes Chrome on hover */\n    -webkit-appearance: none;\n    margin: 0;\n    /* <-- Apparently some margin are still there even though it's hidden */\n}\n\ninput[type='number'] {\n    -moz-appearance: textfield;\n}\n\n#form_num_cities input {\n    font-size: .7rem;\n    height: 2.4em\n}\n\n#form_algorithms option {\n    font-size: .7rem;\n    height: .7em\n}\n\n#form_algorithms select {\n    font-size: .7rem;\n    height: 2.4em\n}\n\n#form_heuristics option {\n    font-size: .7rem;\n    height: 2.4em\n}\n\n#form_heuristics select {\n    font-size: .7rem;\n    height: 2.4em\n}", ""]);
 
 // exports
 
@@ -36105,7 +36105,7 @@ function () {
   }, {
     key: "play",
     value: function play() {
-      if (_self.validAlgorithmSelected()) console.log('play');
+      if (_self.validAlgorithmSelected()) _self.algorithmList[_self.selectedAlgorithm].start();
     }
   }, {
     key: "validAlgorithmSelected",
@@ -36189,6 +36189,7 @@ function () {
     this.id = id;
     this.x = x;
     this.y = y;
+    this.heuristics = 2;
   }
   /**
    * Calculate the distance from this city to another city
@@ -36217,6 +36218,11 @@ function () {
     value: function equals(otherCity) {
       if (!(otherCity instanceof City)) throw new Error('Not a city');
       return this.id == otherCity.id && this.x == otherCity.x && this.y == otherCity.y;
+    }
+  }, {
+    key: "getHeuristics",
+    value: function getHeuristics() {
+      return this.heuristics;
     }
   }]);
 
@@ -36650,7 +36656,7 @@ function () {
         return "city".concat(d.id);
       });
       d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"]('.city_cont').each(function (d) {
-        d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(d.id, "_cont")).append('text').style('font-size', _this2.cityRadius * 0.8).attr("dy", ".35em").text(function (d) {
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(d.id, "_cont")).append('text').style('font-size', _this2.cityRadius * 1.2).attr("dy", ".35em").text(function (d) {
           return d.id;
         });
         d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(d.id, "_cont")).append('text').attr('id', "city".concat(d.id, "_d")).attr('class', 'city_d').style('font-size', _this2.cityRadius * 1).attr('visibility', 'hidden');
@@ -36763,6 +36769,23 @@ function () {
       if (d.city.y > _this.height / 2) yPos *= -1;
       d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(d.city.id, "_d")).attr('visibility', 'visible').attr("dy", yPos).attr("dx", xPos).style('text-anchor', xAlign).text(function (a) {
         return "d: ".concat(d.distance.toFixed(0));
+      });
+    }
+  }, {
+    key: "showHeuristic",
+    value: function showHeuristic(city) {
+      var yPos = _this.cityRadius + 5;
+      var xPos = _this.cityRadius + 2;
+      var xAlign = 'start';
+
+      if (city.x > _this.width / 2) {
+        xPos *= -1;
+        xAlign = 'end';
+      }
+
+      if (city.y > _this.height / 2) yPos *= -1;
+      d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(city.id, "_d")).attr('visibility', 'visible').attr("dy", yPos).attr("dx", xPos).style('text-anchor', xAlign).text(function (a) {
+        return "h: ".concat(city.heuristics);
       });
     }
   }]);

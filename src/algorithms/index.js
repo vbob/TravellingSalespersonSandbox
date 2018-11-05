@@ -61,7 +61,7 @@ class AlgorithmManager {
 
     play() {
         if (_self.validAlgorithmSelected())
-            console.log('play')
+            _self.algorithmList[_self.selectedAlgorithm].start()
     }
 
     validAlgorithmSelected() {

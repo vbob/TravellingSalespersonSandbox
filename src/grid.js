@@ -112,7 +112,7 @@ class Grid {
             .each((d) => {
                 d3.select(`#city${d.id}_cont`)
                     .append('text')
-                    .style('font-size', this.cityRadius * 0.8)
+                    .style('font-size', this.cityRadius * 1.2)
                     .attr("dy", ".35em")
                     .text((d) => {
                         return d.id
@@ -272,6 +272,29 @@ class Grid {
             .style('text-anchor', xAlign)
             .text((a) => {
                 return `d: ${d.distance.toFixed(0)}`
+            })
+    }
+
+    showHeuristic(city) {
+        let yPos = _this.cityRadius + 5
+        let xPos = (_this.cityRadius + 2)
+        let xAlign = 'start'
+
+        if (city.x > _this.width / 2) {
+            xPos *= -1
+            xAlign = 'end'
+        }
+
+        if (city.y > _this.height / 2)
+            yPos *= -1
+
+        d3.select(`#city${city.id}_d`)
+            .attr('visibility', 'visible')
+            .attr("dy", yPos)
+            .attr("dx", xPos)
+            .style('text-anchor', xAlign)
+            .text((a) => {
+                return `h: ${city.heuristics}`
             })
     }
 }

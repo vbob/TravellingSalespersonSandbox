@@ -22,6 +22,7 @@ class City {
         this.id = id
         this.x = x
         this.y = y
+        this.heuristics = 2
     }
 
     /**
@@ -49,6 +50,10 @@ class City {
             throw new Error('Not a city')
 
         return (this.id == otherCity.id) && (this.x == otherCity.x) && (this.y == otherCity.y)
+    }
+
+    getHeuristics() {
+        return this.heuristics
     }
 }
 
