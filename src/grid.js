@@ -8,7 +8,9 @@
  */
 
 import * as d3 from 'd3'
-import { City } from './city'
+import {
+    City
+} from './city'
 
 let _this;
 
@@ -16,12 +18,15 @@ class Grid {
     constructor(container) {
         this.container = container
         this.citiesArray = new Array()
-        this.cityRadius = 12
-        this.width = 1600
-        this.height = 400
+
+        this.width = window.innerWidth
+        this.height = this.width / 3
+        this.cityRadius = this.width / 140
 
         this.drag = d3.drag()
-            .subject(function (d) { return d; })
+            .subject(function(d) {
+                return d;
+            })
             .on("start", this.dragStarted)
             .on("drag", this.dragged)
             .on("end", this.dragEnded);
@@ -58,13 +63,22 @@ class Grid {
         d3.select(this.container)
             .select('svg')
             .append('g')
+            .attr('class', 'temp-paths')
+
+        d3.select(this.container)
+            .select('svg')
+            .append('g')
             .append('text')
             .attr('class', 'bottom-text')
             .text('')
-            .attr("transform", function (d) { return "translate(" + _this.width / 2 + "," + (_this.height - 5) + ")" })
+            .attr("transform", function(d) {
+                return "translate(" + _this.width / 2 + "," + (_this.height - 5) + ")"
+            })
+            .style('font-size', _this.cityRadius * 1.2)
 
     }
 
+    //eslint-disable-next-line max-lines-per-function
     drawCities() {
         d3.select(this.container)
             .selectAll('.map')
@@ -78,23 +92,38 @@ class Grid {
             .data(this.citiesArray)
             .enter()
             .append('g')
-            .attr("id", function (d) { return `city${d.id}_cont` })
+            .attr("id", function(d) {
+                return `city${d.id}_cont`
+            })
             .attr("class", 'city_cont')
-            .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")" })
+            .attr("transform", function(d) {
+                return "translate(" + d.x + "," + d.y + ")"
+            })
             .on('mouseenter', this.mouseenter)
             .on('mouseleave', this.mouseleave)
             .call(this.drag)
             .append('circle')
             .attr('r', this.cityRadius)
-            .attr("id", function (d) { return `city${d.id}` })
+            .attr("id", function(d) {
+                return `city${d.id}`
+            })
 
         d3.selectAll('.city_cont')
             .each((d) => {
                 d3.select(`#city${d.id}_cont`)
                     .append('text')
-                    .style('font-size', this.cityRadius * 1.5)
+                    .style('font-size', this.cityRadius * 0.8)
                     .attr("dy", ".35em")
-                    .text((d) => { return d.id })
+                    .text((d) => {
+                        return d.id
+                    })
+
+                d3.select(`#city${d.id}_cont`)
+                    .append('text')
+                    .attr('id', `city${d.id}_d`)
+                    .attr('class', 'city_d')
+                    .style('font-size', this.cityRadius * 1)
+                    .attr('visibility', 'hidden')
             })
     }
 
@@ -122,8 +151,8 @@ class Grid {
     dragStarted(d) {
         d3.event.sourceEvent.stopPropagation();
         d3.select(this).select('circle').classed("dragging", true);
-        console.log(d)
-        //d3.select(
+
+        _this.drawDistances(d)
     }
 
     dragged(d) {
@@ -146,16 +175,107 @@ class Grid {
         d.x = x()
         d.y = y()
 
-        d3.select(this).attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")" })
+        d3.select(this).attr("transform", function(d) {
+            return "translate(" + d.x + "," + d.y + ")"
+        })
         d3.select('.bottom-text').text(`x: ${d.x.toFixed(0)} y: ${d.y.toFixed(0)}`)
+        _this.drawDistances(d)
 
     }
 
     dragEnded(d) {
         d3.select(this).select('circle').classed("dragging", false);
         d3.select('.bottom-text').text('')
+
+        d3.select('.temp-paths')
+            .selectAll('line')
+            .remove()
+
+        d3.selectAll('.city_d')
+            .attr('visibility', 'hidden')
+            .text((a) => {
+                return ``
+            })
     }
 
+    drawDistances(d) {
+        d3.select('.temp-paths')
+            .selectAll('line')
+            .remove()
+
+        let distances = _this.citiesArray.map((city) => {
+            if (!d.equals(city))
+                return {
+                    city,
+                    distance: d.calculateDistanceTo(city)
+                }
+        })
+
+        distances.forEach((city) => {
+            if (city) {
+                this.drawTempConnection(d, city.city)
+                this.showDistance(city)
+            }
+        });
+    }
+
+    drawTempConnection(c1, c2) {
+        d3.selectAll(`#tempConn${c1.id}-${c2.id}`)
+            .remove()
+
+        d3.select('.temp-paths')
+            .append('line')
+            .attr('id', `tempConn${c1.id}-${c2.id}`)
+            .style('stroke', '#e0e0e0')
+            .style('stroke-width', `${ _this.cityRadius / 5}px`)
+            .style('stroke-dasharray', "3,5")
+            .attr("x1", c1.x)
+            .attr("y1", c1.y)
+            .attr("x2", c2.x)
+            .attr("y2", c2.y);
+    }
+
+    drawConnection(c1, c2) {
+        d3.selectAll(`#conn${c1.id}-${c2.id}`)
+            .remove()
+
+        d3.select('.run-paths')
+            .append('line')
+            .attr('id', `conn${c1.id}-${c2.id}`)
+            .style('stroke', '#000')
+            .style('stroke-width', `${ _this.cityRadius / 5}px`)
+            .style('stroke-dasharray', "3,5")
+            .attr("x1", c1.x)
+            .attr("y1", c1.y)
+            .attr("x2", c2.x)
+            .attr("y2", c2.y);
+    }
+
+    showDistance(d) {
+        let yPos = _this.cityRadius + 5
+        let xPos = (_this.cityRadius + 2)
+        let xAlign = 'start'
+
+        if (d.city.x > _this.width / 2) {
+            xPos *= -1
+            xAlign = 'end'
+        }
+
+        if (d.city.y > _this.height / 2)
+            yPos *= -1
+
+
+        d3.select(`#city${d.city.id}_d`)
+            .attr('visibility', 'visible')
+            .attr("dy", yPos)
+            .attr("dx", xPos)
+            .style('text-anchor', xAlign)
+            .text((a) => {
+                return `d: ${d.distance.toFixed(0)}`
+            })
+    }
 }
 
-export { Grid }
+export {
+    Grid
+}

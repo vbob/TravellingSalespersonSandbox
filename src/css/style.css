@@ -1,6 +1,11 @@
-html, body {
+html,
+body {
     max-width: 100%;
     overflow-x: hidden;
+}
+
+body {
+    font-size: 0.8rem;
 }
 
 body {
@@ -21,7 +26,7 @@ nav {
 }
 
 .bg-primary {
-    background: #00227b !important; 
+    background: #00227b !important;
 }
 
 nav .navbar-light {
@@ -41,8 +46,33 @@ nav .navbar-light {
     padding: 0;
 }
 
+body h4 {
+    font-size: 1.1rem;
+}
+
+#plots_container .nav-link {
+    padding-top: .6rem;
+    padding-bottom: .6rem;
+    font-size: 0.6rem;
+}
+
+.navbar-nav .nav-link {
+    padding-top: 0.3rem;
+    padding-bottom: .3rem;
+    font-size: 0.6rem;
+    margin-top: 0
+}
+
+.navbar-nav {
+    height: 1.2rem;
+}
+
+#navbarNav {
+    padding-top: 0rem;
+}
+
 #plots_container .nav {
-    background-color: #1976d2;
+    background-color: #C774A3;
 }
 
 #controls {
@@ -53,6 +83,13 @@ nav .navbar-light {
 }
 
 #algorithm_options {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+#heuristic_options {
     padding-top: 5%;
     padding-bottom: 5%;
     margin-bottom: 5px;
@@ -81,4 +118,41 @@ nav .navbar-light {
 
 #btn_save {
     background: #6f74dd;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+#form_num_cities input {
+    font-size: .7rem;
+    height: 2.4em
+}
+
+#form_algorithms option {
+    font-size: .7rem;
+    height: .7em
+}
+
+#form_algorithms select {
+    font-size: .7rem;
+    height: 2.4em
+}
+
+#form_heuristics option {
+    font-size: .7rem;
+    height: 2.4em
+}
+
+#form_heuristics select {
+    font-size: .7rem;
+    height: 2.4em
 }

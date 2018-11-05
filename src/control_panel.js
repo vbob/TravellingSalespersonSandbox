@@ -1,3 +1,5 @@
+/* eslint-disable max-statements */
+/* eslint-disable no-eval */
 /*
  * travelling_salesperson_sandbox
  * https://github.com/vbob/travelling_salesperson_sandbox
@@ -18,12 +20,19 @@ import {
 import {
     fromEvent
 } from 'rxjs'
+import {
+    City
+} from "./city";
+import {
+    StatsManager
+} from "./stats";
 
 let _self;
 
 class ControlPanel {
-    constructor(selectors) {
+    constructor(selectors, grid) {
         _self = this
+        this.grid = grid
 
         this.algorithmManager = new AlgorithmManager()
         this.heuristicsManager = new HeuristicsManager()
@@ -33,6 +42,8 @@ class ControlPanel {
         this.importAlgorithms()
         this.importHeuristics()
         this.startListeners()
+
+        this.createCities()
     }
 
     defineSelectors(selectors) {
@@ -47,6 +58,8 @@ class ControlPanel {
         this.forwardButtonSelector = document.querySelector(selectors.forwardButtonSelector)
         this.backwardButtonSelector = document.querySelector(selectors.backwardButtonSelector)
         this.saveButtonSelector = document.querySelector(selectors.saveButtonSelector)
+
+        this.citiesQttySelector = document.querySelector(selectors.citiesQttySelector)
     }
 
     importAlgorithms() {
@@ -85,14 +98,25 @@ class ControlPanel {
     }
 
     startListeners() {
+
+        fromEvent(this.citiesQttySelector, 'change').subscribe(this.updateCitiesMap)
         fromEvent(this.playButtonSelector, 'click').subscribe(this.algorithmManager.play)
         fromEvent(this.pauseButtonSelector, 'click').subscribe(this.algorithmManager.pause)
         fromEvent(this.stopButtonSelector, 'click').subscribe(this.algorithmManager.stop)
         fromEvent(this.forwardButtonSelector, 'click').subscribe(this.algorithmManager.forward)
         fromEvent(this.backwardButtonSelector, 'click').subscribe(this.algorithmManager.backward)
-        fromEvent(this.saveButtonSelector, 'click').subscribe(this.save)
+
+        //fromEvent(this.saveButtonSelector, 'click').subscribe(this.save)
 
         fromEvent(this.algorithmSelector, 'change').subscribe(this.changeAlgorithm)
+
+        this.startStatsManager()
+
+        this.disableButton('stop')
+        this.disableButton('play')
+        this.disableButton('pause')
+        this.disableButton('forward')
+        this.disableButton('backward')
     }
 
     save() {
@@ -101,11 +125,17 @@ class ControlPanel {
 
     changeAlgorithm() {
         let selectedAlgorithm = _self.algorithmSelector.value
+        _self.algorithmManager.changeAlgorithm(selectedAlgorithm)
 
-        if (selectedAlgorithm !== 'null' && _self.algorithmManager.algorithmList[selectedAlgorithm].useHeuristics) {
-            _self.showHeuristicsMenu()
+        if (_self.algorithmManager.validAlgorithmSelected()) {
+            _self.enableButton('play')
+            _self.enableButton('forward')
         } else {
-            _self.hideHeuristicsMenu()
+            _self.disableButton('stop')
+            _self.disableButton('play')
+            _self.disableButton('pause')
+            _self.disableButton('forward')
+            _self.disableButton('backward')
         }
     }
 
@@ -115,6 +145,110 @@ class ControlPanel {
 
     showHeuristicsMenu() {
         _self.heuristicsContainerSelector.classList.remove('d-none')
+    }
+
+    createCities() {
+        let numCities = _self.citiesQttySelector.value
+
+        let rndmX, rndmY;
+
+        let f = (a1, a2) => {
+            if (a1 < (0 + _self.grid.cityRadius))
+                return 0 + _self.grid.cityRadius
+            else if ((a1 > (a2 - _self.grid.cityRadius)))
+                return a2 - _self.grid.cityRadius
+            else return a1
+        }
+
+
+        for (let i = 0; i < numCities; i++) {
+            rndmX = Math.random() * (_self.grid.width - _self.grid.cityRadius)
+            rndmY = Math.random() * (_self.grid.height - _self.grid.cityRadius)
+
+            _self.grid.addCity(new City({
+                id: i + 1,
+                x: f(rndmX, _self.grid.width),
+                y: f(rndmY, _self.grid.height)
+            }))
+        }
+    }
+
+    //eslint-disable-next-line max-statements
+    updateCitiesMap() {
+        if (_self.citiesQttySelector.value > 3 && _self.citiesQttySelector.value < 21) {
+            let numCities = _self.citiesQttySelector.value
+
+            if (numCities > _self.grid.citiesArray.length) {
+                let rndmX, rndmY;
+
+                let f = (a1, a2) => {
+                    if (a1 < (0 + _self.grid.cityRadius))
+                        return 0 + _self.grid.cityRadius
+                    else if ((a1 > (a2 - _self.grid.cityRadius)))
+                        return a2 - _self.grid.cityRadius
+                    else return a1
+                }
+
+                for (let i = _self.grid.citiesArray.length; i < numCities; i++) {
+                    rndmX = Math.random() * (_self.grid.width - _self.grid.cityRadius)
+                    rndmY = Math.random() * (_self.grid.height - _self.grid.cityRadius)
+
+                    _self.grid.addCity(new City({
+                        id: i + 1,
+                        x: f(rndmX, _self.grid.width),
+                        y: f(rndmY, _self.grid.height)
+                    }))
+                }
+
+            } else if (numCities < _self.grid.citiesArray.length) {
+                let toBeRemoved = _self.grid.citiesArray.length - numCities
+
+                for (let i = 0; i < toBeRemoved; i++) {
+                    _self.grid.removeCity(_self.grid.citiesArray[_self.grid.citiesArray.length - 1])
+                }
+            }
+        }
+    }
+
+    startStatsManager() {
+        let selectorsStats = {
+            longestPathSelector: '#longest_path',
+            memoryUsageSelector: '#ram_usage',
+            processorUsageSelector: '#processor_usage',
+            runSpeedSelector: '#exec_speed',
+            shortestPathSelector: '#shortest_path',
+            statusSelector: '#status',
+            stepNumberSelector: '#step_number',
+            timeElapsedSelector: '#time_elapsed'
+        }
+
+        let stats = new StatsManager(selectorsStats)
+    }
+
+    disableButton(button) {
+        eval(`_self.${button}ButtonSelector.disabled = true`)
+    }
+
+    enableButton(button) {
+        eval(`_self.${button}ButtonSelector.disabled = false`)
+    }
+
+    changeStatus(status) {
+
+
+        if (status == 'parado') {
+            _self.statsManager.changeProperty('status', 'Parado')
+            if (_self.algorithmManager.validAlgorithmSelected()) {
+                _self.enableButton('play')
+                _self.enableButton('forward')
+            } else {
+                _self.disableButton('stop')
+                _self.disableButton('play')
+                _self.disableButton('pause')
+                _self.disableButton('forward')
+                _self.disableButton('backward')
+            }
+        }
     }
 }
 

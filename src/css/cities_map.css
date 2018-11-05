@@ -1,52 +1,61 @@
 /* City Color */
 
 .map circle {
-  fill: #f06292;
+    fill: #1976d2
 }
 
 .map circle.hover {
-  fill: #ff94c2;
+    fill: #CC769B;
 }
+
 
 /* City Color when Draggin */
 
 .map circle.dragging {
-  fill: #ba2d65;
+    fill: #ba2d65;
 }
 
 .map circle.initial_city {
-  fill: greenyellow;
-  stroke: green;
+    fill: greenyellow;
+    stroke: green;
 }
+
 
 /* Grid Color */
 
 .axis line {
-  fill: none;
-  stroke-width: 0px;
-  /* dont show grid */
-  stroke: #bbb;
-  shape-rendering: crispEdges;
+    fill: none;
+    stroke-width: 0px;
+    /* dont show grid */
+    stroke: #bbb;
+    shape-rendering: crispEdges;
 }
 
 svg text {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  text-anchor: middle;
-  fill: white;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-anchor: middle;
+    fill: white;
 }
 
-
 .bottom-text {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  text-anchor: middle;
-  fill: black;
-  alignment-baseline: baseline;
-  font-size: 0.85em;
-  fill: #9E9E9E
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-anchor: middle;
+    alignment-baseline: baseline;
+    fill: #9E9E9E
+}
+
+.city_d {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-anchor: start;
+    alignment-baseline: middle;
+    fill: #9E9E9E
 }

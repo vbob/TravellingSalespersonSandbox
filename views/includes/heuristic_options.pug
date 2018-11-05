@@ -1,9 +1,9 @@
 .jumbotron#heuristic_options
-    h5 #{__('heuristics_options')}
+    h4 #{__('heuristics_options')}
      hr.my-2
 
     // Algorithms Controller (DONT FORCE IT HERE! IT IS CONTROLLED IN algorithms_manager.js)
-    .form-group
+    .form-group#form_heuristics
         label(for='heuristics') #{__('heuristics')}
         select#heuristics.form-control
             option(selected='', value='')    
