@@ -2,11 +2,11 @@
 .jumbotron#plots_container
 
   // Navbar
-  ul.nav.nav-tabs(style="text-align:center;")
+  ul.nav.nav-tabs(style="text-align:center;").justify-content-center
 
     // Convergency
     li.nav-item
-      a.text-light.nav-link.active.in(data-toggle="tab", href="#covergency_plot_container") #{__('convergency')}
+      a.text-light.nav-link.active.in(data-toggle="tab", href="#covergence_plot_container") #{__('convergency')}
 
     // Distance
     li.nav-item
@@ -14,19 +14,27 @@
 
     // Resources
     li.nav-item
-      a.text-light.nav-link(data-toggle="tab", href="#resources_plot_container") #{__('resources')}
+      a.text-light.nav-link(data-toggle="tab", href="#memory_plot_container") #{__('memory')}
+
+    // Resources
+    li.nav-item
+      a.text-light.nav-link(data-toggle="tab", href="#processor_plot_container") #{__('processor')}
 
   // Contents
-  .tab-content(style="height: 85%; padding: 30px")
+  .tab-content
 
     // Convergency
-    #covergency_plot_container.tab-pane.in.active
-      div#covergency_plot
+    #covergence_plot_container.tab-pane.in.active.plot_container
+      div#covergence_plot
 
     // Distance
-    #distance_plot_container.tab-pane.fade
+    #distance_plot_container.tab-pane.fade.plot_container
       div#distance_plot
     
     // Resourcess
-    #resources_plot_container.tab-pane.fade
-      div#resources_plot
+    #processor_plot_container.tab-pane.fade.plot_container
+      div#processor_plot
+
+    // Resourcess
+    #memory_plot_container.tab-pane.fade.plot_container
+      div#memory_plot

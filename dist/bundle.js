@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "/* City Color */\n\n.map circle {\n    fill: #1976d2\n}\n\n.map circle.hover {\n    fill: #CC769B;\n}\n\n\n/* City Color when Draggin */\n\n.map circle.dragging {\n    fill: #ba2d65;\n}\n\n.map circle.initial_city {\n    fill: greenyellow;\n    stroke: green;\n}\n\n\n/* Grid Color */\n\n.axis line {\n    fill: none;\n    stroke-width: 0px;\n    /* dont show grid */\n    stroke: #bbb;\n    shape-rendering: crispEdges;\n}\n\nsvg text {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    text-anchor: middle;\n    fill: white;\n}\n\n.bottom-text {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    text-anchor: middle;\n    alignment-baseline: baseline;\n    fill: #9E9E9E\n}\n\n.city_d {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    text-anchor: start;\n    alignment-baseline: middle;\n    fill: #9E9E9E\n}", ""]);
+exports.push([module.i, "/* City Color */\r\n\r\n.map circle {\r\n    fill: #1976d2\r\n}\r\n\r\n.map circle.hover {\r\n    fill: #CC769B;\r\n}\r\n\r\n\r\n/* City Color when Draggin */\r\n\r\n.map circle.dragging {\r\n    fill: #ba2d65;\r\n}\r\n\r\n.map circle.initial_city {\r\n    fill: greenyellow;\r\n    stroke: green;\r\n}\r\n\r\n\r\n/* Grid Color */\r\n\r\n.axis line {\r\n    fill: none;\r\n    stroke-width: 0px;\r\n    /* dont show grid */\r\n    stroke: #bbb;\r\n    shape-rendering: crispEdges;\r\n}\r\n\r\nsvg text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    fill: white;\r\n}\r\n\r\n.bottom-text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    alignment-baseline: baseline;\r\n    fill: #9E9E9E\r\n}\r\n\r\n.city_d {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: start;\r\n    alignment-baseline: middle;\r\n    fill: #9E9E9E\r\n}", ""]);
 
 // exports
 
@@ -117,7 +117,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "html,\nbody {\n    max-width: 100%;\n    overflow-x: hidden;\n}\n\nbody {\n    font-size: 0.8rem;\n}\n\nbody {\n    background-color: #E0E0E0\n}\n\n.jumbotron {\n    border-radius: 0px;\n    background-color: #fafafa;\n    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, .05);\n    margin-bottom: 5px;\n    margin-top: 5px;\n}\n\nnav {\n    background-color: #00227b;\n    margin-bottom: 5px;\n}\n\n.bg-primary {\n    background: #00227b !important;\n}\n\nnav .navbar-light {\n    background-color: #00227b;\n}\n\n.nav {\n    background-color: #00227b;\n}\n\n#main_stats {\n    padding-top: 5%;\n    padding-bottom: 5%;\n}\n\n#plots_container {\n    padding: 0;\n}\n\nbody h4 {\n    font-size: 1.1rem;\n}\n\n#plots_container .nav-link {\n    padding-top: .6rem;\n    padding-bottom: .6rem;\n    font-size: 0.6rem;\n}\n\n.navbar-nav .nav-link {\n    padding-top: 0.3rem;\n    padding-bottom: .3rem;\n    font-size: 0.6rem;\n    margin-top: 0\n}\n\n.navbar-nav {\n    height: 1.2rem;\n}\n\n#navbarNav {\n    padding-top: 0rem;\n}\n\n#plots_container .nav {\n    background-color: #C774A3;\n}\n\n#controls {\n    padding-top: 5%;\n    padding-bottom: 5%;\n    margin-bottom: 5px;\n    margin-top: 5px;\n}\n\n#algorithm_options {\n    padding-top: 5%;\n    padding-bottom: 5%;\n    margin-bottom: 5px;\n    margin-top: 5px;\n}\n\n#heuristic_options {\n    padding-top: 5%;\n    padding-bottom: 5%;\n    margin-bottom: 5px;\n    margin-top: 5px;\n}\n\n#btn_start {\n    background: #388E3C;\n}\n\n#btn_pause {\n    background: #FF9800;\n}\n\n#btn_stop {\n    background: #D32F2F;\n}\n\n#btn_backward {\n    background: #03A9F4;\n}\n\n#btn_forward {\n    background: #03A9F4;\n}\n\n#btn_save {\n    background: #6f74dd;\n}\n\ninput::-webkit-outer-spin-button,\ninput::-webkit-inner-spin-button {\n    /* display: none; <- Crashes Chrome on hover */\n    -webkit-appearance: none;\n    margin: 0;\n    /* <-- Apparently some margin are still there even though it's hidden */\n}\n\ninput[type='number'] {\n    -moz-appearance: textfield;\n}\n\n#form_num_cities input {\n    font-size: .7rem;\n    height: 2.4em\n}\n\n#form_algorithms option {\n    font-size: .7rem;\n    height: .7em\n}\n\n#form_algorithms select {\n    font-size: .7rem;\n    height: 2.4em\n}\n\n#form_heuristics option {\n    font-size: .7rem;\n    height: 2.4em\n}\n\n#form_heuristics select {\n    font-size: .7rem;\n    height: 2.4em\n}", ""]);
+exports.push([module.i, "html,\r\nbody {\r\n    max-width: 100%;\r\n    overflow-x: hidden;\r\n}\r\n\r\nbody {\r\n    font-size: 0.8rem;\r\n}\r\n\r\nbody {\r\n    background-color: #E0E0E0\r\n}\r\n\r\n.jumbotron {\r\n    border-radius: 0px;\r\n    background-color: #fafafa;\r\n    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, .05);\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\nnav {\r\n    background-color: #00227b;\r\n    margin-bottom: 5px;\r\n}\r\n\r\n.bg-primary {\r\n    background: #00227b !important;\r\n}\r\n\r\nnav .navbar-light {\r\n    background-color: #00227b;\r\n}\r\n\r\n.nav {\r\n    background-color: #00227b;\r\n}\r\n\r\n#main_stats {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n}\r\n\r\n#plots_container {\r\n    padding: 0;\r\n}\r\n\r\nbody h4 {\r\n    font-size: 1.1rem;\r\n}\r\n\r\n#plots_container .nav-link {\r\n    padding-top: .6rem;\r\n    padding-bottom: .6rem;\r\n    font-size: 0.6rem;\r\n}\r\n\r\n.navbar-nav .nav-link {\r\n    padding-top: 0.3rem;\r\n    padding-bottom: .3rem;\r\n    font-size: 0.6rem;\r\n    margin-top: 0\r\n}\r\n\r\n.navbar-nav {\r\n    height: 1.2rem;\r\n}\r\n\r\n#navbarNav {\r\n    padding-top: 0rem;\r\n}\r\n\r\n#plots_container .nav {\r\n    background-color: #C774A3;\r\n}\r\n\r\n#controls {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\n#algorithm_options {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\n#heuristic_options {\r\n    padding-top: 5%;\r\n    padding-bottom: 5%;\r\n    margin-bottom: 5px;\r\n    margin-top: 5px;\r\n}\r\n\r\n#btn_start {\r\n    background: #388E3C;\r\n}\r\n\r\n#btn_pause {\r\n    background: #FF9800;\r\n}\r\n\r\n#btn_stop {\r\n    background: #D32F2F;\r\n}\r\n\r\n#btn_backward {\r\n    background: #03A9F4;\r\n}\r\n\r\n#btn_forward {\r\n    background: #03A9F4;\r\n}\r\n\r\n#btn_save {\r\n    background: #6f74dd;\r\n}\r\n\r\n.plot_container {\r\n    padding: 10px\r\n}\r\n\r\ninput::-webkit-outer-spin-button,\r\ninput::-webkit-inner-spin-button {\r\n    /* display: none; <- Crashes Chrome on hover */\r\n    -webkit-appearance: none;\r\n    margin: 0;\r\n    /* <-- Apparently some margin are still there even though it's hidden */\r\n}\r\n\r\ninput[type='number'] {\r\n    -moz-appearance: textfield;\r\n}\r\n\r\n#form_num_cities input {\r\n    font-size: .7rem;\r\n    height: 2.4em\r\n}\r\n\r\n#form_algorithms option {\r\n    font-size: .7rem;\r\n    height: .7em\r\n}\r\n\r\n#form_algorithms select {\r\n    font-size: .7rem;\r\n    height: 2.4em\r\n}\r\n\r\n#form_heuristics option {\r\n    font-size: .7rem;\r\n    height: 2.4em\r\n}\r\n\r\n#form_heuristics select {\r\n    font-size: .7rem;\r\n    height: 2.4em\r\n}\r\n\r\n.line {\r\n    fill: none;\r\n    stroke: #64b5f6;\r\n    stroke-width: 1;\r\n}\r\n\r\n.overlay {\r\n    fill: none;\r\n    pointer-events: all;\r\n}\r\n\r\n\r\n/* Style the dots by assigning a fill and stroke */\r\n\r\n.dot {\r\n    fill: #64b5f6;\r\n    stroke: #fff;\r\n}\r\n\r\n.focus {\r\n    stroke: #64b5f6;\r\n}\r\n\r\n.tick text {\r\n    fill: black\r\n}\r\n\r\n.grid path,\r\n.grid line {\r\n    stroke-width: 1px;\r\n    stroke: #E0E0E0\r\n}", ""]);
 
 // exports
 
@@ -36470,7 +36470,7 @@ function () {
         stepNumberSelector: '#step_number',
         timeElapsedSelector: '#time_elapsed'
       };
-      var stats = new _stats__WEBPACK_IMPORTED_MODULE_4__["StatsManager"](selectorsStats);
+      this.stats = new _stats__WEBPACK_IMPORTED_MODULE_4__["StatsManager"](selectorsStats);
     }
   }, {
     key: "disableButton",
@@ -36899,7 +36899,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _grid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./grid */ "./src/grid.js");
 /* harmony import */ var _city__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./city */ "./src/city.js");
 /* harmony import */ var _control_panel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./control_panel */ "./src/control_panel.js");
-/* harmony import */ var _stats__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./stats */ "./src/stats.js");
+/* harmony import */ var _plots__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./plots */ "./src/plots.js");
 /*
  * travelling_salesperson_sandbox
  * https://github.com/vbob/travelling_salesperson_sandbox
@@ -36931,6 +36931,179 @@ var selectorsCPanel = {
   stopButtonSelector: '#btn_stop'
 };
 var controlPanel = new _control_panel__WEBPACK_IMPORTED_MODULE_4__["ControlPanel"](selectorsCPanel, grid);
+var plots = new _plots__WEBPACK_IMPORTED_MODULE_5__["PlotsManager"]();
+plots.createPlot('#covergence_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5);
+plots.createPlot('#distance_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5);
+plots.createPlot('#memory_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5);
+plots.createPlot('#processor_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5);
+var i = 0;
+var j = 0;
+var k = 0;
+var l = 0;
+setInterval(function () {
+  plots.addPoint('#covergence_plot', new _plots__WEBPACK_IMPORTED_MODULE_5__["Point"]('convergence', i++, Math.log10(i)));
+  plots.addPoint('#distance_plot', new _plots__WEBPACK_IMPORTED_MODULE_5__["Point"]('convergence', j++, Math.cos(j)));
+  plots.addPoint('#memory_plot', new _plots__WEBPACK_IMPORTED_MODULE_5__["Point"]('convergence', k++, Math.pow(k - 1000, 2)));
+  plots.addPoint('#processor_plot', new _plots__WEBPACK_IMPORTED_MODULE_5__["Point"]('convergence', l++, Math.pow(l - 1000, 3)));
+}, 10);
+
+/***/ }),
+
+/***/ "./src/plots.js":
+/*!**********************!*\
+  !*** ./src/plots.js ***!
+  \**********************/
+/*! exports provided: PlotsManager, Point */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlotsManager", function() { return PlotsManager; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Point", function() { return Point; });
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/* eslint-disable no-ternary */
+
+/* eslint-disable array-element-newline */
+
+/* eslint-disable max-classes-per-file */
+
+/*eslint-disable max-statements */
+
+/*eslint-disable max-lines-per-function */
+
+/*
+ * travelling_salesperson_sandbox
+ * https://github.com/vbob/travelling_salesperson_sandbox
+ * 
+ * Copyright (c) 2018 Vitor Barth
+ * Licensed under the MIT License
+ * 
+ */
+var d3 = __webpack_require__(/*! d3 */ "./node_modules/d3/index.js");
+
+var _self;
+
+var margin = {
+  bottom: 30,
+  left: 65,
+  right: 30,
+  top: 20
+};
+
+var Point = function Point(dataset, x, y) {
+  _classCallCheck(this, Point);
+
+  this.dataset = dataset;
+  this.x = x;
+  this.y = y;
+};
+
+var Plot =
+/*#__PURE__*/
+function () {
+  function Plot(container, width, height) {
+    _classCallCheck(this, Plot);
+
+    this.container = container;
+    this.externalWidth = width;
+    this.externalHeight = height;
+    this.width = width - (margin.left + margin.right);
+    this.height = height - (margin.top + margin.bottom);
+    this.curve = d3.curveMonotoneX;
+    this.dataset = new Array();
+    this.draw();
+  }
+
+  _createClass(Plot, [{
+    key: "draw",
+    value: function draw() {
+      d3.select(this.container).selectAll('svg').remove();
+      this.svg = d3.select(this.container).append('svg').attr("preserveAspectRatio", "xMinYMin meet").attr("viewBox", "0 0 ".concat(this.externalWidth, " ").concat(this.externalHeight)).append('g').attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+      this.createScales();
+      this.createLine();
+      this.drawAxes();
+      this.drawPath();
+    }
+  }, {
+    key: "createScales",
+    value: function createScales() {
+      this.xScale = d3.scaleLinear().domain([0, d3.max(this.dataset, function (d) {
+        return d.x;
+      })]).range([0, this.width]);
+      var minValue = d3.min(this.dataset, function (d) {
+        return d.y;
+      });
+      this.yScale = d3.scaleLinear().domain([minValue < 0 ? minValue : 0, d3.max(this.dataset, function (d) {
+        return d.y;
+      })]).range([this.height, 0]);
+    }
+  }, {
+    key: "createLine",
+    value: function createLine() {
+      var _this = this;
+
+      this.line = d3.line().x(function (d, i) {
+        return _this.xScale(i);
+      }).y(function (d) {
+        return _this.yScale(d.y);
+      }).curve(this.curve);
+    }
+  }, {
+    key: "drawAxes",
+    value: function drawAxes() {
+      this.svg.append("g").attr("class", "grid").attr("transform", "translate(0," + this.height + ")").call(d3.axisBottom(this.xScale).ticks(10).tickSize(-this.height).tickFormat(''));
+      this.svg.append('g').attr('class', 'grid').call(d3.axisLeft(this.yScale).ticks(10).tickSize(-this.width).tickFormat(''));
+      this.svg.append('g').attr('class', 'axis').call(d3.axisLeft(this.yScale).ticks(10).tickSizeInner(30));
+      this.svg.append('g').attr('class', 'axis').attr("transform", "translate(0," + this.height + ")").call(d3.axisBottom(this.xScale).ticks(10).tickSizeInner(6));
+    }
+  }, {
+    key: "drawPath",
+    value: function drawPath() {
+      this.svg.selectAll('.line').remove();
+      this.svg.append('path').datum(this.dataset).attr('class', 'line').attr('d', this.line);
+    }
+  }, {
+    key: "addPoint",
+    value: function addPoint(point) {
+      this.dataset.push(point);
+      this.draw();
+    }
+  }]);
+
+  return Plot;
+}();
+
+var PlotsManager =
+/*#__PURE__*/
+function () {
+  function PlotsManager() {
+    _classCallCheck(this, PlotsManager);
+
+    _self = this;
+    this.plot = [];
+  }
+
+  _createClass(PlotsManager, [{
+    key: "createPlot",
+    value: function createPlot(container, width, height) {
+      this.plot[container] = new Plot(container, width, height);
+    }
+  }, {
+    key: "addPoint",
+    value: function addPoint(container, point) {
+      this.plot[container].addPoint(point);
+    }
+  }]);
+
+  return PlotsManager;
+}();
+
+
 
 /***/ }),
 

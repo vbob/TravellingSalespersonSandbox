@@ -222,7 +222,7 @@ class ControlPanel {
             timeElapsedSelector: '#time_elapsed'
         }
 
-        let stats = new StatsManager(selectorsStats)
+        this.stats = new StatsManager(selectorsStats)
     }
 
     disableButton(button) {

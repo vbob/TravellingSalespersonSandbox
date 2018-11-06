@@ -24,7 +24,11 @@ import {
 import {
     ControlPanel
 } from './control_panel';
-import { StatsManager } from './stats';
+
+import {
+    PlotsManager,
+    Point
+} from './plots';
 
 let grid = new Grid('#cities_map_container')
 grid.draw()
@@ -43,5 +47,23 @@ let selectorsCPanel = {
 
 }
 
-
 let controlPanel = new ControlPanel(selectorsCPanel, grid)
+
+let plots = new PlotsManager()
+plots.createPlot('#covergence_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5)
+plots.createPlot('#distance_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5)
+plots.createPlot('#memory_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5)
+plots.createPlot('#processor_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5)
+
+let i = 0
+let j = 0;
+let k = 0;
+let l = 0;
+
+setInterval(() => {
+    plots.addPoint('#covergence_plot', new Point('convergence', i++, Math.log10(i)))
+    plots.addPoint('#distance_plot', new Point('convergence', j++, Math.cos(j)))
+    plots.addPoint('#memory_plot', new Point('convergence', k++, Math.pow(k - 1000, 2)))
+
+    plots.addPoint('#processor_plot', new Point('convergence', l++, Math.pow(l - 1000, 3)))
+}, 10)

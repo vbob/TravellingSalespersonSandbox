@@ -120,6 +120,10 @@ body h4 {
     background: #6f74dd;
 }
 
+.plot_container {
+    padding: 10px
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     /* display: none; <- Crashes Chrome on hover */
@@ -155,4 +159,37 @@ input[type='number'] {
 #form_heuristics select {
     font-size: .7rem;
     height: 2.4em
+}
+
+.line {
+    fill: none;
+    stroke: #64b5f6;
+    stroke-width: 1;
+}
+
+.overlay {
+    fill: none;
+    pointer-events: all;
+}
+
+
+/* Style the dots by assigning a fill and stroke */
+
+.dot {
+    fill: #64b5f6;
+    stroke: #fff;
+}
+
+.focus {
+    stroke: #64b5f6;
+}
+
+.tick text {
+    fill: black
+}
+
+.grid path,
+.grid line {
+    stroke-width: 1px;
+    stroke: #E0E0E0
 }
