@@ -22,7 +22,7 @@ class City {
         this.id = id
         this.x = x
         this.y = y
-        this.heuristics = 2
+        this.heuristics = 0
     }
 
     /**
@@ -32,7 +32,7 @@ class City {
      * @returns
      * @memberof City
      */
-    calculateDistanceTo(otherCity) {
+    distanceTo(otherCity) {
         if (!(otherCity instanceof City))
             throw new Error('Not a city')
 

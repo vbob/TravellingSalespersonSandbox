@@ -34,7 +34,7 @@ class ControlPanel {
         _self = this
         this.grid = grid
 
-        this.algorithmManager = new AlgorithmManager()
+        this.algorithmManager = new AlgorithmManager(this.grid.citiesArray)
         this.heuristicsManager = new HeuristicsManager()
 
         this.defineSelectors(selectors)
@@ -109,6 +109,8 @@ class ControlPanel {
         //fromEvent(this.saveButtonSelector, 'click').subscribe(this.save)
 
         fromEvent(this.algorithmSelector, 'change').subscribe(this.changeAlgorithm)
+        this.algorithmManager.statusAnnounce$.subscribe(this.statusUpdate)
+        this.algorithmManager.currentNodeAnnounce$.subscribe(this.changeNode)
 
         this.startStatsManager()
 
@@ -223,6 +225,7 @@ class ControlPanel {
         }
 
         this.stats = new StatsManager(selectorsStats)
+        _self.stats.changeProperty('runSpeed', '0')
     }
 
     disableButton(button) {
@@ -233,22 +236,48 @@ class ControlPanel {
         eval(`_self.${button}ButtonSelector.disabled = false`)
     }
 
-    changeStatus(status) {
-
-
-        if (status == 'parado') {
-            _self.statsManager.changeProperty('status', 'Parado')
+    statusUpdate(status) {
+        if (status == 'stopped') {
+            _self.stats.changeProperty('status', 'Parado')
+            _self.stats.changeProperty('runSpeed', '0')
             if (_self.algorithmManager.validAlgorithmSelected()) {
                 _self.enableButton('play')
                 _self.enableButton('forward')
-            } else {
-                _self.disableButton('stop')
+            }
+            _self.grid.disableDrag();
+
+        } else if (status == 'running') {
+            _self.stats.changeProperty('status', 'Executando')
+            _self.stats.changeProperty('runSpeed', '100')
+            if (_self.algorithmManager.validAlgorithmSelected()) {
+                _self.enableButton('stop')
+                _self.enableButton('pause')
+
                 _self.disableButton('play')
-                _self.disableButton('pause')
                 _self.disableButton('forward')
                 _self.disableButton('backward')
             }
+
+            _self.grid.disableDrag();
         }
+    }
+
+    changeNode(node) {
+
+        _self.grid.markCurrent(node.state)
+        _self.grid.deleteConnections()
+
+        let lastCity;
+        let sol = _self.algorithmManager.problem.solution(node)
+
+        for (let city in sol) {
+            if (city > 0)
+                _self.grid.drawConnection(sol[city - 1], sol[city])
+        }
+
+        if (_self.algorithmManager.problem.goalTest(node))
+            _self.grid.drawConnection(sol[sol.length - 1], _self.algorithmManager.problem.initialState)
+
     }
 }
 

@@ -19,7 +19,7 @@ describe('City', function () {
     let city3 = new City({ id: 2, x: 3, y: 4 })
 
     it('should calculate the distance between two cities', function () {
-      assert.strictEqual(city2.calculateDistanceTo(city3), 5)
+      assert.strictEqual(city2.distanceTo(city3), 5)
     })
 
     it('should refuses wrong parameters', function () {

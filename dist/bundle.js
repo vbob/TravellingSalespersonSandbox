@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "/* City Color */\r\n\r\n.map circle {\r\n    fill: #1976d2\r\n}\r\n\r\n.map circle.hover {\r\n    fill: #CC769B;\r\n}\r\n\r\n\r\n/* City Color when Draggin */\r\n\r\n.map circle.dragging {\r\n    fill: #ba2d65;\r\n}\r\n\r\n.map circle.initial_city {\r\n    fill: greenyellow;\r\n    stroke: green;\r\n}\r\n\r\n\r\n/* Grid Color */\r\n\r\n.axis line {\r\n    fill: none;\r\n    stroke-width: 0px;\r\n    /* dont show grid */\r\n    stroke: #bbb;\r\n    shape-rendering: crispEdges;\r\n}\r\n\r\nsvg text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    fill: white;\r\n}\r\n\r\n.bottom-text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    alignment-baseline: baseline;\r\n    fill: #9E9E9E\r\n}\r\n\r\n.city_d {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: start;\r\n    alignment-baseline: middle;\r\n    fill: #9E9E9E\r\n}", ""]);
+exports.push([module.i, "/* City Color */\r\n\r\n.map circle {\r\n    fill: #1976d2\r\n}\r\n\r\n.map circle.hover {\r\n    fill: #CC769B;\r\n}\r\n\r\n\r\n/* City Color when Draggin */\r\n\r\n.map circle.dragging {\r\n    fill: #ba2d65;\r\n}\r\n\r\n.map circle.current {\r\n    fill: #ba2d65;\r\n    stroke: #ba2d65;\r\n}\r\n\r\n\r\n/* Grid Color */\r\n\r\n.axis line {\r\n    fill: none;\r\n    stroke-width: 0px;\r\n    /* dont show grid */\r\n    stroke: #bbb;\r\n    shape-rendering: crispEdges;\r\n}\r\n\r\nsvg text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    fill: white;\r\n}\r\n\r\n.bottom-text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    alignment-baseline: baseline;\r\n    fill: #9E9E9E\r\n}\r\n\r\n.city_d {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: start;\r\n    alignment-baseline: middle;\r\n    fill: #9E9E9E\r\n}", ""]);
 
 // exports
 
@@ -35921,6 +35921,7 @@ function __importDefault(mod) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BFS", function() { return BFS; });
+/* harmony import */ var _snode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../snode */ "./src/snode.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -35935,6 +35936,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  * Licensed under the MIT License
  * 
  */
+
 var _id = 'bfs';
 var _displayName = 'Breadth-First Search (BFS)';
 var _useHeuristics = false;
@@ -35947,6 +35949,39 @@ function () {
   }
 
   _createClass(BFS, null, [{
+    key: "start",
+    value: function start(problem) {
+      var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0, 0);
+      problem.frontier.push(node);
+      console.log(problem.frontier);
+    }
+  }, {
+    key: "step",
+    value: function step(problem) {
+      if (problem.frontier.length == 0) {
+        problem.finish({
+          status: 1,
+          message: 'border is empty'
+        });
+        return null;
+      } else {
+        var node = problem.frontier.shift();
+        problem.actions(node).forEach(function (action) {
+          var child = node.createChildNode(action, node.state.distanceTo(action), 0);
+          problem.frontier.push(child);
+        });
+
+        if (problem.goalTest(node)) {
+          problem.finish({
+            status: 1,
+            message: problem.solution(node)
+          });
+        }
+
+        return node;
+      }
+    }
+  }, {
     key: "id",
     get: function get() {
       return _id;
@@ -35980,6 +36015,7 @@ function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DFS", function() { return DFS; });
+/* harmony import */ var _snode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../snode */ "./src/snode.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -35994,6 +36030,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  * Licensed under the MIT License
  * 
  */
+
 var _id = 'dfs';
 var _displayName = 'Depht-First Search (DFS)';
 var _useHeuristics = true;
@@ -36006,6 +36043,38 @@ function () {
   }
 
   _createClass(DFS, null, [{
+    key: "start",
+    value: function start(problem) {
+      var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0, 0);
+      problem.frontier.push(node);
+    }
+  }, {
+    key: "step",
+    value: function step(problem) {
+      if (problem.frontier.length == 0) {
+        problem.finish({
+          status: 1,
+          message: 'border is empty'
+        });
+        return null;
+      } else {
+        var node = problem.frontier.shift();
+        problem.actions(node).forEach(function (action) {
+          var child = node.createChildNode(action, node.state.distanceTo(action), 0);
+          problem.frontier.unshift(child);
+        });
+
+        if (problem.goalTest(node)) {
+          problem.finish({
+            status: 1,
+            message: problem.solution(node)
+          });
+        }
+
+        return node;
+      }
+    }
+  }, {
     key: "id",
     get: function get() {
       return _id;
@@ -36042,6 +36111,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bfs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bfs */ "./src/algorithms/bfs.js");
 /* harmony import */ var _dfs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dfs */ "./src/algorithms/dfs.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _tsp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tsp */ "./src/tsp.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -36059,26 +36129,29 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
+
 var statusAnnounceSource = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
 var stepAnnounceSource = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
+var currentNodeAnnouceSource = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
 
 var _self;
 
 var AlgorithmManager =
 /*#__PURE__*/
 function () {
-  function AlgorithmManager() {
+  function AlgorithmManager(citiesArray) {
     _classCallCheck(this, AlgorithmManager);
 
     _self = this;
+    this.citiesArray = citiesArray;
     this.algorithmList = {
       bfs: _bfs__WEBPACK_IMPORTED_MODULE_0__["BFS"],
       dfs: _dfs__WEBPACK_IMPORTED_MODULE_1__["DFS"]
     };
     this.initializeAnnoucers();
     this.selectedAlgorithm = '';
-    this.border = new Array();
-    this.status = 'stopped';
+    this.running = false;
+    this.currentNode = null;
   }
 
   _createClass(AlgorithmManager, [{
@@ -36086,6 +36159,7 @@ function () {
     value: function initializeAnnoucers() {
       this.statusAnnounce$ = statusAnnounceSource.asObservable();
       this.stepAnnounce$ = stepAnnounceSource.asObservable();
+      this.currentNodeAnnounce$ = currentNodeAnnouceSource.asObservable();
     }
   }, {
     key: "announceStatus",
@@ -36098,14 +36172,28 @@ function () {
       stepAnnounceSource.next(step);
     }
   }, {
+    key: "announceCurrentNode",
+    value: function announceCurrentNode(node) {
+      currentNodeAnnouceSource.next(node);
+    }
+  }, {
     key: "changeAlgorithm",
     value: function changeAlgorithm(algorithm) {
-      this.selectedAlgorithm = algorithm;
+      _self.selectedAlgorithm = algorithm;
+      _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_3__["TSP"](_self.citiesArray);
     }
   }, {
     key: "play",
     value: function play() {
-      if (_self.validAlgorithmSelected()) _self.algorithmList[_self.selectedAlgorithm].start();
+      if (_self.validAlgorithmSelected()) {
+        _self.algorithmList[_self.selectedAlgorithm].start(_self.problem);
+
+        _self.announceStatus('running');
+
+        _self.running = true;
+
+        _self.step();
+      }
     }
   }, {
     key: "validAlgorithmSelected",
@@ -36137,6 +36225,18 @@ function () {
     key: "backward",
     value: function backward() {
       console.log('backward');
+    }
+  }, {
+    key: "step",
+    value: function step() {
+      var _this = this;
+
+      var currNode = _self.algorithmList[_self.selectedAlgorithm].step(_self.problem);
+
+      this.announceCurrentNode(currNode);
+      if (!_self.problem.goalTest(currNode)) setTimeout(function () {
+        _this.step();
+      }, 1000);
     }
   }]);
 
@@ -36189,7 +36289,7 @@ function () {
     this.id = id;
     this.x = x;
     this.y = y;
-    this.heuristics = 2;
+    this.heuristics = 0;
   }
   /**
    * Calculate the distance from this city to another city
@@ -36201,8 +36301,8 @@ function () {
 
 
   _createClass(City, [{
-    key: "calculateDistanceTo",
-    value: function calculateDistanceTo(otherCity) {
+    key: "distanceTo",
+    value: function distanceTo(otherCity) {
       if (!(otherCity instanceof City)) throw new Error('Not a city');
       return Math.sqrt(Math.pow(otherCity.x - this.x, 2) + Math.pow(otherCity.y - this.y, 2));
     }
@@ -36282,7 +36382,7 @@ function () {
 
     _self = this;
     this.grid = grid;
-    this.algorithmManager = new _algorithms__WEBPACK_IMPORTED_MODULE_0__["AlgorithmManager"]();
+    this.algorithmManager = new _algorithms__WEBPACK_IMPORTED_MODULE_0__["AlgorithmManager"](this.grid.citiesArray);
     this.heuristicsManager = new _heuristics__WEBPACK_IMPORTED_MODULE_1__["HeuristicsManager"]();
     this.defineSelectors(selectors);
     this.hideHeuristicsMenu();
@@ -36359,6 +36459,8 @@ function () {
       Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(this.backwardButtonSelector, 'click').subscribe(this.algorithmManager.backward); //fromEvent(this.saveButtonSelector, 'click').subscribe(this.save)
 
       Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(this.algorithmSelector, 'change').subscribe(this.changeAlgorithm);
+      this.algorithmManager.statusAnnounce$.subscribe(this.statusUpdate);
+      this.algorithmManager.currentNodeAnnounce$.subscribe(this.changeNode);
       this.startStatsManager();
       this.disableButton('stop');
       this.disableButton('play');
@@ -36471,6 +36573,8 @@ function () {
         timeElapsedSelector: '#time_elapsed'
       };
       this.stats = new _stats__WEBPACK_IMPORTED_MODULE_4__["StatsManager"](selectorsStats);
+
+      _self.stats.changeProperty('runSpeed', '0');
     }
   }, {
     key: "disableButton",
@@ -36483,27 +36587,56 @@ function () {
       eval("_self.".concat(button, "ButtonSelector.disabled = false"));
     }
   }, {
-    key: "changeStatus",
-    value: function changeStatus(status) {
-      if (status == 'parado') {
-        _self.statsManager.changeProperty('status', 'Parado');
+    key: "statusUpdate",
+    value: function statusUpdate(status) {
+      if (status == 'stopped') {
+        _self.stats.changeProperty('status', 'Parado');
+
+        _self.stats.changeProperty('runSpeed', '0');
 
         if (_self.algorithmManager.validAlgorithmSelected()) {
           _self.enableButton('play');
 
           _self.enableButton('forward');
-        } else {
-          _self.disableButton('stop');
+        }
+
+        _self.grid.disableDrag();
+      } else if (status == 'running') {
+        _self.stats.changeProperty('status', 'Executando');
+
+        _self.stats.changeProperty('runSpeed', '100');
+
+        if (_self.algorithmManager.validAlgorithmSelected()) {
+          _self.enableButton('stop');
+
+          _self.enableButton('pause');
 
           _self.disableButton('play');
-
-          _self.disableButton('pause');
 
           _self.disableButton('forward');
 
           _self.disableButton('backward');
         }
+
+        _self.grid.disableDrag();
       }
+    }
+  }, {
+    key: "changeNode",
+    value: function changeNode(node) {
+      _self.grid.markCurrent(node.state);
+
+      _self.grid.deleteConnections();
+
+      var lastCity;
+
+      var sol = _self.algorithmManager.problem.solution(node);
+
+      for (var city in sol) {
+        if (city > 0) _self.grid.drawConnection(sol[city - 1], sol[city]);
+      }
+
+      if (_self.algorithmManager.problem.goalTest(node)) _self.grid.drawConnection(sol[sol.length - 1], _self.algorithmManager.problem.initialState);
     }
   }]);
 
@@ -36616,19 +36749,23 @@ function () {
     this.width = window.innerWidth;
     this.height = this.width / 3;
     this.cityRadius = this.width / 140;
+    _this = this;
+    this.dragEnabled = true;
     this.drag = d3__WEBPACK_IMPORTED_MODULE_0__["drag"]().subject(function (d) {
       return d;
     }).on("start", this.dragStarted).on("drag", this.dragged).on("end", this.dragEnded);
 
     this.mouseenter = function (city) {
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(city.id)).classed("hover", true);
+      if (_this.dragEnabled) {
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(city.id)).classed("hover", true);
+      }
     };
 
     this.mouseleave = function (city) {
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(city.id)).classed("hover", false);
+      if (_this.dragEnabled) {
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(city.id)).classed("hover", false);
+      }
     };
-
-    _this = this;
   }
 
   _createClass(Grid, [{
@@ -36685,40 +36822,46 @@ function () {
   }, {
     key: "dragStarted",
     value: function dragStarted(d) {
-      d3__WEBPACK_IMPORTED_MODULE_0__["event"].sourceEvent.stopPropagation();
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).select('circle').classed("dragging", true);
+      if (_this.dragEnabled) {
+        d3__WEBPACK_IMPORTED_MODULE_0__["event"].sourceEvent.stopPropagation();
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).select('circle').classed("dragging", true);
 
-      _this.drawDistances(d);
+        _this.drawDistances(d);
+      }
     }
   }, {
     key: "dragged",
     value: function dragged(d) {
-      var x = function x() {
-        if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].x < 0 + _this.cityRadius) return 0 + _this.cityRadius;else if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].x > _this.width - _this.cityRadius) return _this.width - _this.cityRadius;else return d3__WEBPACK_IMPORTED_MODULE_0__["event"].x;
-      };
+      if (_this.dragEnabled) {
+        var x = function x() {
+          if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].x < 0 + _this.cityRadius) return 0 + _this.cityRadius;else if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].x > _this.width - _this.cityRadius) return _this.width - _this.cityRadius;else return d3__WEBPACK_IMPORTED_MODULE_0__["event"].x;
+        };
 
-      var y = function y() {
-        if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].y < 0 + _this.cityRadius) return 0 + _this.cityRadius;else if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].y > _this.height - _this.cityRadius) return _this.height - _this.cityRadius;else return d3__WEBPACK_IMPORTED_MODULE_0__["event"].y;
-      };
+        var y = function y() {
+          if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].y < 0 + _this.cityRadius) return 0 + _this.cityRadius;else if (d3__WEBPACK_IMPORTED_MODULE_0__["event"].y > _this.height - _this.cityRadius) return _this.height - _this.cityRadius;else return d3__WEBPACK_IMPORTED_MODULE_0__["event"].y;
+        };
 
-      d.x = x();
-      d.y = y();
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).attr("transform", function (d) {
-        return "translate(" + d.x + "," + d.y + ")";
-      });
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.bottom-text').text("x: ".concat(d.x.toFixed(0), " y: ").concat(d.y.toFixed(0)));
+        d.x = x();
+        d.y = y();
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).attr("transform", function (d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        });
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.bottom-text').text("x: ".concat(d.x.toFixed(0), " y: ").concat(d.y.toFixed(0)));
 
-      _this.drawDistances(d);
+        _this.drawDistances(d);
+      }
     }
   }, {
     key: "dragEnded",
     value: function dragEnded(d) {
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).select('circle').classed("dragging", false);
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.bottom-text').text('');
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.temp-paths').selectAll('line').remove();
-      d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"]('.city_d').attr('visibility', 'hidden').text(function (a) {
-        return "";
-      });
+      if (_this.dragEnabled) {
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"](this).select('circle').classed("dragging", false);
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.bottom-text').text('');
+        d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.temp-paths').selectAll('line').remove();
+        d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"]('.city_d').attr('visibility', 'hidden').text(function (a) {
+          return "";
+        });
+      }
     }
   }, {
     key: "drawDistances",
@@ -36730,7 +36873,7 @@ function () {
       var distances = _this.citiesArray.map(function (city) {
         if (!d.equals(city)) return {
           city: city,
-          distance: d.calculateDistanceTo(city)
+          distance: d.distanceTo(city)
         };
       });
 
@@ -36752,7 +36895,18 @@ function () {
     key: "drawConnection",
     value: function drawConnection(c1, c2) {
       d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"]("#conn".concat(c1.id, "-").concat(c2.id)).remove();
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.run-paths').append('line').attr('id', "conn".concat(c1.id, "-").concat(c2.id)).style('stroke', '#000').style('stroke-width', "".concat(_this.cityRadius / 5, "px")).style('stroke-dasharray', "3,5").attr("x1", c1.x).attr("y1", c1.y).attr("x2", c2.x).attr("y2", c2.y);
+      d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.temp-paths').append('line').attr('class', 'conn_city').attr('id', "tempConn".concat(c1.id, "-").concat(c2.id)).style('stroke', '#e0e0e0').style('stroke-width', "".concat(_this.cityRadius / 5, "px")).style('stroke-dasharray', "3,5").attr("x1", c1.x).attr("y1", c1.y).attr("x2", c2.x).attr("y2", c2.y);
+    }
+  }, {
+    key: "deleteConnections",
+    value: function deleteConnections() {
+      d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"](".conn_city").remove();
+    }
+  }, {
+    key: "markCurrent",
+    value: function markCurrent(city) {
+      d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"]('.current').classed('current', false);
+      d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(city.id)).classed('current', true);
     }
   }, {
     key: "showDistance",
@@ -36787,6 +36941,17 @@ function () {
       d3__WEBPACK_IMPORTED_MODULE_0__["select"]("#city".concat(city.id, "_d")).attr('visibility', 'visible').attr("dy", yPos).attr("dx", xPos).style('text-anchor', xAlign).text(function (a) {
         return "h: ".concat(city.heuristics);
       });
+    }
+  }, {
+    key: "disableDrag",
+    value: function disableDrag() {
+      console.log('disable');
+      _this.dragEnabled = false;
+    }
+  }, {
+    key: "enableDrag",
+    value: function enableDrag() {
+      _this.dragEnabled = true;
     }
   }]);
 
@@ -36930,22 +37095,27 @@ var selectorsCPanel = {
   saveButtonSelector: '#btn_save',
   stopButtonSelector: '#btn_stop'
 };
-var controlPanel = new _control_panel__WEBPACK_IMPORTED_MODULE_4__["ControlPanel"](selectorsCPanel, grid);
-var plots = new _plots__WEBPACK_IMPORTED_MODULE_5__["PlotsManager"]();
-plots.createPlot('#covergence_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5);
-plots.createPlot('#distance_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5);
-plots.createPlot('#memory_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5);
-plots.createPlot('#processor_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5);
-var i = 0;
-var j = 0;
-var k = 0;
-var l = 0;
-setInterval(function () {
-  plots.addPoint('#covergence_plot', new _plots__WEBPACK_IMPORTED_MODULE_5__["Point"]('convergence', i++, Math.log10(i)));
-  plots.addPoint('#distance_plot', new _plots__WEBPACK_IMPORTED_MODULE_5__["Point"]('convergence', j++, Math.cos(j)));
-  plots.addPoint('#memory_plot', new _plots__WEBPACK_IMPORTED_MODULE_5__["Point"]('convergence', k++, Math.pow(k - 1000, 2)));
-  plots.addPoint('#processor_plot', new _plots__WEBPACK_IMPORTED_MODULE_5__["Point"]('convergence', l++, Math.pow(l - 1000, 3)));
-}, 10);
+var controlPanel = new _control_panel__WEBPACK_IMPORTED_MODULE_4__["ControlPanel"](selectorsCPanel, grid); // let plots = new PlotsManager()
+// plots.createPlot('#covergence_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5)
+// plots.createPlot('#distance_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5)
+// plots.createPlot('#memory_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5)
+// plots.createPlot('#processor_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5)
+// let i = 0
+// let j = 0;
+// let k = 0;
+// let l = 0;
+// plots.addPoint('#covergence_plot', new Point('convergence', i++, Math.log10(i)))
+// plots.addPoint('#distance_plot', new Point('convergence', j++, Math.cos(j)))
+// plots.addPoint('#memory_plot', new Point('convergence', k++, Math.pow(k - 1000, 2)))
+// plots.addPoint('#processor_plot', new Point('convergence', l++, Math.pow(l - 1000, 3)))
+// plots.addPoint('#covergence_plot', new Point('convergence', i++, Math.log10(i)))
+// plots.addPoint('#distance_plot', new Point('convergence', j++, Math.cos(j)))
+// plots.addPoint('#memory_plot', new Point('convergence', k++, Math.pow(k - 1000, 2)))
+// plots.addPoint('#processor_plot', new Point('convergence', l++, Math.pow(l - 1000, 3)))
+// plots.addPoint('#covergence_plot', new Point('convergence', i++, Math.log10(i)))
+// plots.addPoint('#distance_plot', new Point('convergence', j++, Math.cos(j)))
+// plots.addPoint('#memory_plot', new Point('convergence', k++, Math.pow(k - 1000, 2)))
+// plots.addPoint('#processor_plot', new Point('convergence', l++, Math.pow(l - 1000, 3)))
 
 /***/ }),
 
@@ -37107,6 +37277,48 @@ function () {
 
 /***/ }),
 
+/***/ "./src/snode.js":
+/*!**********************!*\
+  !*** ./src/snode.js ***!
+  \**********************/
+/*! exports provided: SNode */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SNode", function() { return SNode; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var SNode =
+/*#__PURE__*/
+function () {
+  function SNode(state, parent, pathCost, heuristics) {
+    _classCallCheck(this, SNode);
+
+    this.state = state;
+    this.parent = parent;
+    this.pathCost = pathCost;
+    this.heuristics = heuristics;
+  }
+
+  _createClass(SNode, [{
+    key: "createChildNode",
+    value: function createChildNode(state, cost, heuristics) {
+      return new SNode(state, this, this.pathCost + cost, heuristics);
+    }
+  }]);
+
+  return SNode;
+}();
+
+
+
+/***/ }),
+
 /***/ "./src/stats.js":
 /*!**********************!*\
   !*** ./src/stats.js ***!
@@ -37162,6 +37374,91 @@ function () {
   }]);
 
   return StatsManager;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/tsp.js":
+/*!********************!*\
+  !*** ./src/tsp.js ***!
+  \********************/
+/*! exports provided: TSP */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TSP", function() { return TSP; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/*
+ * travelling_salesperson_sandbox
+ * https://github.com/vbob/travelling_salesperson_sandbox
+ * 
+ * Copyright (c) 2018 Vitor Barth
+ * Licensed under the MIT License
+ * 
+ */
+var TSP =
+/*#__PURE__*/
+function () {
+  function TSP(citiesArray) {
+    _classCallCheck(this, TSP);
+
+    this.frontier = new Array();
+    this.citiesArray = citiesArray;
+    this.initialState = citiesArray[0];
+    console.log(citiesArray[0]);
+  }
+
+  _createClass(TSP, [{
+    key: "solution",
+    value: function solution(node) {
+      var solution = new Array();
+      solution.unshift(node.state);
+
+      while (node.parent) {
+        node = node.parent;
+        solution.unshift(node.state);
+      }
+
+      return solution;
+    }
+  }, {
+    key: "actions",
+    value: function actions(node) {
+      var sol = this.solution(node);
+      return this.citiesArray.filter(function (city) {
+        return !sol.find(function (solCity) {
+          return city.equals(solCity);
+        });
+      });
+    }
+  }, {
+    key: "goalTest",
+    value: function goalTest(node) {
+      var sol = this.solution(node);
+      return this.citiesArray.filter(function (city) {
+        return !sol.find(function (solCity) {
+          return city.equals(solCity);
+        });
+      }).length == 0;
+    }
+  }, {
+    key: "finish",
+    value: function finish(_ref) {
+      var status = _ref.status,
+          message = _ref.message;
+      console.log('Exited with status ' + status + ': ' + message);
+    }
+  }]);
+
+  return TSP;
 }();
 
 

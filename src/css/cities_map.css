@@ -15,9 +15,9 @@
     fill: #ba2d65;
 }
 
-.map circle.initial_city {
-    fill: greenyellow;
-    stroke: green;
+.map circle.current {
+    fill: #ba2d65;
+    stroke: #ba2d65;
 }
 
 

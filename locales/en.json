@@ -53,5 +53,7 @@
 	"backward": "Backward",
 	"save": "Save",
 	"algorithms": "Algorithms",
-	"status": "Status"
+	"status": "Status",
+	"memory": "memory",
+	"processor": "processor"
 }

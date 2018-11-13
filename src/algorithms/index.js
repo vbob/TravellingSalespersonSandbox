@@ -18,16 +18,22 @@ import {
 import {
     Subject
 } from 'rxjs';
+import {
+    TSP
+} from '../tsp';
 
 
 let statusAnnounceSource = new Subject();
 let stepAnnounceSource = new Subject();
+let currentNodeAnnouceSource = new Subject();
 
 let _self
 
 class AlgorithmManager {
-    constructor() {
+    constructor(citiesArray) {
         _self = this
+
+        this.citiesArray = citiesArray
 
         this.algorithmList = {
             bfs: BFS,
@@ -36,15 +42,14 @@ class AlgorithmManager {
 
         this.initializeAnnoucers()
         this.selectedAlgorithm = ''
-
-        this.border = new Array()
-
-        this.status = 'stopped'
+        this.running = false;
+        this.currentNode = null
     }
 
     initializeAnnoucers() {
         this.statusAnnounce$ = statusAnnounceSource.asObservable()
         this.stepAnnounce$ = stepAnnounceSource.asObservable()
+        this.currentNodeAnnounce$ = currentNodeAnnouceSource.asObservable()
     }
 
     announceStatus(status) {
@@ -55,13 +60,23 @@ class AlgorithmManager {
         stepAnnounceSource.next(step)
     }
 
+    announceCurrentNode(node) {
+        currentNodeAnnouceSource.next(node)
+    }
+
     changeAlgorithm(algorithm) {
-        this.selectedAlgorithm = algorithm
+        _self.selectedAlgorithm = algorithm
+        _self.problem = new TSP(_self.citiesArray)
     }
 
     play() {
-        if (_self.validAlgorithmSelected())
-            _self.algorithmList[_self.selectedAlgorithm].start()
+        if (_self.validAlgorithmSelected()) {
+            _self.algorithmList[_self.selectedAlgorithm].start(_self.problem)
+            _self.announceStatus('running')
+
+            _self.running = true
+            _self.step()
+        }
     }
 
     validAlgorithmSelected() {
@@ -89,6 +104,17 @@ class AlgorithmManager {
 
     backward() {
         console.log('backward')
+    }
+
+    step() {
+        let currNode = _self.algorithmList[_self.selectedAlgorithm].step(_self.problem)
+
+        this.announceCurrentNode(currNode)
+
+        if (!_self.problem.goalTest(currNode))
+            setTimeout(() => {
+                this.step()
+            }, 1000)
     }
 }
 
