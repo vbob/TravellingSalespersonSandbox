@@ -121,6 +121,13 @@ class AlgorithmManager {
         _self.createStats()
     }
 
+    changeHeuristics(heuristics) {
+        _self.selectedHeuristics = heuristics
+        _self.stop()
+        _self.problem = new TSP(_self.citiesArray)
+        _self.createStats()
+    }
+
     play() {
         if (_self.validAlgorithmSelected() && _self.status == 'stopped') {
             _self.algorithmList[_self.selectedAlgorithm].start(_self.problem)
@@ -139,6 +146,18 @@ class AlgorithmManager {
             if (_self.selectedAlgorithm === _self.algorithmList[algorithm].id) {
                 isSelected = true;
 
+            }
+        }
+
+        return isSelected
+    }
+
+    validHeuristicsSelected() {
+        let isSelected = false
+
+        for (let heuristics in _self.heuristicsList) {
+            if (_self.selectedHeuristics === _self.heuristicsList[heuristics].id) {
+                isSelected = true;
             }
         }
 
@@ -186,6 +205,9 @@ class AlgorithmManager {
         _self.numberOfNodes = _self.problem.frontier.length;
         _self.currentPath = currNode.pathCost;
 
+        if (_self.algorithmList[_self.selectedAlgorithm].useHeuristics)
+            _self.calculateHeuristics(currNode)
+
         if (_self.stepNumber % 10) {
             _self.timeElapsed = (end() * (_self.stepNumber / 10)).toFixed(0)
             start()
@@ -204,6 +226,12 @@ class AlgorithmManager {
         else if (algorithmCompleted) {
             _self.end()
         }
+    }
+
+    calculateHeuristics(currNode) {
+        _self.citiesArray.forEach(city => {
+            _self.heuristicsList[_self.selectedHeuristics].calculate(city, currNode)
+        })
     }
 }
 

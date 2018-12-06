@@ -19,12 +19,9 @@ class KOpt {
         return _displayName
     }
 
-    static start(problem) {
-
-    }
-
-    static step(problem) {
-
+    static calculate(city, currentNode) {
+        console.log(city)
+        console.log(currentNode)
     }
 }
 

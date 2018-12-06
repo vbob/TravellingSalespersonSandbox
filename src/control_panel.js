@@ -14,10 +14,6 @@ import {
 } from "./algorithms";
 
 import {
-    HeuristicsManager
-} from "./heuristics"
-
-import {
     fromEvent
 } from 'rxjs'
 import {
@@ -42,7 +38,6 @@ class ControlPanel {
         this.grid = grid
 
         this.algorithmManager = new AlgorithmManager(this.grid.citiesArray)
-        this.heuristicsManager = new HeuristicsManager()
 
         this.defineSelectors(selectors)
     }
@@ -95,12 +90,14 @@ class ControlPanel {
         newOption.value = null
         this.heuristicsSelector.add(newOption)
 
-        this.heuristicsManager.heuristicsList.forEach(heuristic => {
-            let newOption = document.createElement('option')
-            newOption.text = heuristic.displayName
-            newOption.value = heuristic.id
-            this.heuristicsSelector.add(newOption)
-        })
+        for (let heuristic in this.algorithmManager.heuristicsList) {
+            if (this.algorithmManager.heuristicsList[heuristic].id && this.algorithmManager.heuristicsList[heuristic].displayName) {
+                let newOption = document.createElement('option')
+                newOption.text = this.algorithmManager.heuristicsList[heuristic].displayName
+                newOption.value = this.algorithmManager.heuristicsList[heuristic].id
+                this.heuristicsSelector.add(newOption)
+            }
+        }
     }
 
     startListeners() {
@@ -114,6 +111,7 @@ class ControlPanel {
         fromEvent(this.stopButtonSelector, 'click').subscribe(this.algorithmManager.stop)
         fromEvent(this.forwardButtonSelector, 'click').subscribe(this.algorithmManager.forward)
         fromEvent(this.algorithmSelector, 'change').subscribe(this.changeAlgorithm)
+        fromEvent(this.heuristicsSelector, 'change').subscribe(this.changeHeuristics)
 
         this.algorithmManager.statusAnnounce$.subscribe(this.statusUpdate)
         this.algorithmManager.currentNodeAnnounce$.subscribe(this.changeNode)
@@ -136,12 +134,13 @@ class ControlPanel {
         _self.algorithmManager.changeAlgorithm(selectedAlgorithm)
 
         if (_self.algorithmManager.validAlgorithmSelected()) {
-            _self.enableButton('play')
-            _self.enableButton('forward')
             if (_self.algorithmManager.algorithmList[selectedAlgorithm].useHeuristics)
                 _self.showHeuristicsMenu()
-            else
+            else {
                 _self.hideHeuristicsMenu()
+                _self.enableButton('play')
+                _self.enableButton('forward')
+            }
         } else {
             _self.disableButton('stop')
             _self.disableButton('play')
@@ -151,12 +150,37 @@ class ControlPanel {
         }
     }
 
+    changeHeuristics() {
+        let selectedHeuristics = _self.heuristicsSelector.value
+        _self.algorithmManager.changeHeuristics(selectedHeuristics)
+
+        if (_self.algorithmManager.validHeuristicsSelected()) {
+            _self.enableButton('play')
+            _self.enableButton('forward')
+        } else {
+            _self.disableButton('stop')
+            _self.disableButton('play')
+            _self.disableButton('pause')
+            _self.disableButton('forward')
+        }
+    }
+
     hideHeuristicsMenu() {
         _self.heuristicsContainerSelector.classList.add('d-none')
     }
 
     showHeuristicsMenu() {
         _self.heuristicsContainerSelector.classList.remove('d-none')
+
+        if (_self.algorithmManager.validHeuristicsSelected()) {
+            _self.enableButton('play')
+            _self.enableButton('forward')
+        } else {
+            _self.disableButton('stop')
+            _self.disableButton('play')
+            _self.disableButton('pause')
+            _self.disableButton('forward')
+        }
     }
 
     createCities() {

@@ -36329,6 +36329,17 @@ function () {
       _self.createStats();
     }
   }, {
+    key: "changeHeuristics",
+    value: function changeHeuristics(heuristics) {
+      _self.selectedHeuristics = heuristics;
+
+      _self.stop();
+
+      _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_5__["TSP"](_self.citiesArray);
+
+      _self.createStats();
+    }
+  }, {
     key: "play",
     value: function play() {
       if (_self.validAlgorithmSelected() && _self.status == 'stopped') {
@@ -36350,6 +36361,19 @@ function () {
 
       for (var algorithm in _self.algorithmList) {
         if (_self.selectedAlgorithm === _self.algorithmList[algorithm].id) {
+          isSelected = true;
+        }
+      }
+
+      return isSelected;
+    }
+  }, {
+    key: "validHeuristicsSelected",
+    value: function validHeuristicsSelected() {
+      var isSelected = false;
+
+      for (var heuristics in _self.heuristicsList) {
+        if (_self.selectedHeuristics === _self.heuristicsList[heuristics].id) {
           isSelected = true;
         }
       }
@@ -36403,6 +36427,7 @@ function () {
       _self.stepNumber += 1;
       _self.numberOfNodes = _self.problem.frontier.length;
       _self.currentPath = currNode.pathCost;
+      if (_self.algorithmList[_self.selectedAlgorithm].useHeuristics) _self.calculateHeuristics(currNode);
 
       if (_self.stepNumber % 10) {
         _self.timeElapsed = (end() * (_self.stepNumber / 10)).toFixed(0);
@@ -36420,6 +36445,13 @@ function () {
       }, 1);else if (algorithmCompleted) {
         _self.end();
       }
+    }
+  }, {
+    key: "calculateHeuristics",
+    value: function calculateHeuristics(currNode) {
+      _self.citiesArray.forEach(function (city) {
+        _self.heuristicsList[_self.selectedHeuristics].calculate(city, currNode);
+      });
     }
   }]);
 
@@ -36465,11 +36497,11 @@ function () {
   }
 
   _createClass(KOpt, null, [{
-    key: "start",
-    value: function start(problem) {}
-  }, {
-    key: "step",
-    value: function step(problem) {}
+    key: "calculate",
+    value: function calculate(city, currentNode) {
+      console.log(city);
+      console.log(currentNode);
+    }
   }, {
     key: "id",
     get: function get() {
@@ -36586,10 +36618,9 @@ function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ControlPanel", function() { return ControlPanel; });
 /* harmony import */ var _algorithms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./algorithms */ "./src/algorithms/index.js");
-/* harmony import */ var _heuristics__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./heuristics */ "./src/heuristics/index.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _city__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./city */ "./src/city.js");
-/* harmony import */ var _stats__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./stats */ "./src/stats.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _city__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./city */ "./src/city.js");
+/* harmony import */ var _stats__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./stats */ "./src/stats.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -36613,7 +36644,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-
 var _self;
 
 function verifyBorders(a1, a2) {
@@ -36629,7 +36659,6 @@ function () {
     _self = this;
     this.grid = grid;
     this.algorithmManager = new _algorithms__WEBPACK_IMPORTED_MODULE_0__["AlgorithmManager"](this.grid.citiesArray);
-    this.heuristicsManager = new _heuristics__WEBPACK_IMPORTED_MODULE_1__["HeuristicsManager"]();
     this.defineSelectors(selectors);
   }
 
@@ -36680,8 +36709,6 @@ function () {
   }, {
     key: "importHeuristics",
     value: function importHeuristics() {
-      var _this = this;
-
       for (var i = 0; i < this.heuristicsSelector.length; i++) {
         this.heuristicsSelector[i] = null;
       }
@@ -36690,25 +36717,29 @@ function () {
       newOption.text = '';
       newOption.value = null;
       this.heuristicsSelector.add(newOption);
-      this.heuristicsManager.heuristicsList.forEach(function (heuristic) {
-        var newOption = document.createElement('option');
-        newOption.text = heuristic.displayName;
-        newOption.value = heuristic.id;
 
-        _this.heuristicsSelector.add(newOption);
-      });
+      for (var heuristic in this.algorithmManager.heuristicsList) {
+        if (this.algorithmManager.heuristicsList[heuristic].id && this.algorithmManager.heuristicsList[heuristic].displayName) {
+          var _newOption2 = document.createElement('option');
+
+          _newOption2.text = this.algorithmManager.heuristicsList[heuristic].displayName;
+          _newOption2.value = this.algorithmManager.heuristicsList[heuristic].id;
+          this.heuristicsSelector.add(_newOption2);
+        }
+      }
     }
   }, {
     key: "startListeners",
     value: function startListeners() {
       // fromEvent(this.saveButtonSelector, 'click').subscribe(this.save)
       // fromEvent(this.backwardButtonSelector, 'click').subscribe(this.algorithmManager.backward)
-      Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(this.citiesQttySelector, 'change').subscribe(this.updateCitiesMap);
-      Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(this.playButtonSelector, 'click').subscribe(this.algorithmManager.play);
-      Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(this.pauseButtonSelector, 'click').subscribe(this.algorithmManager.pause);
-      Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(this.stopButtonSelector, 'click').subscribe(this.algorithmManager.stop);
-      Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(this.forwardButtonSelector, 'click').subscribe(this.algorithmManager.forward);
-      Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["fromEvent"])(this.algorithmSelector, 'change').subscribe(this.changeAlgorithm);
+      Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["fromEvent"])(this.citiesQttySelector, 'change').subscribe(this.updateCitiesMap);
+      Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["fromEvent"])(this.playButtonSelector, 'click').subscribe(this.algorithmManager.play);
+      Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["fromEvent"])(this.pauseButtonSelector, 'click').subscribe(this.algorithmManager.pause);
+      Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["fromEvent"])(this.stopButtonSelector, 'click').subscribe(this.algorithmManager.stop);
+      Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["fromEvent"])(this.forwardButtonSelector, 'click').subscribe(this.algorithmManager.forward);
+      Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["fromEvent"])(this.algorithmSelector, 'change').subscribe(this.changeAlgorithm);
+      Object(rxjs__WEBPACK_IMPORTED_MODULE_1__["fromEvent"])(this.heuristicsSelector, 'change').subscribe(this.changeHeuristics);
       this.algorithmManager.statusAnnounce$.subscribe(this.statusUpdate);
       this.algorithmManager.currentNodeAnnounce$.subscribe(this.changeNode);
       this.algorithmManager.stepAnnounce$.subscribe(this.updateStep);
@@ -36730,11 +36761,13 @@ function () {
       _self.algorithmManager.changeAlgorithm(selectedAlgorithm);
 
       if (_self.algorithmManager.validAlgorithmSelected()) {
-        _self.enableButton('play');
+        if (_self.algorithmManager.algorithmList[selectedAlgorithm].useHeuristics) _self.showHeuristicsMenu();else {
+          _self.hideHeuristicsMenu();
 
-        _self.enableButton('forward');
+          _self.enableButton('play');
 
-        if (_self.algorithmManager.algorithmList[selectedAlgorithm].useHeuristics) _self.showHeuristicsMenu();else _self.hideHeuristicsMenu();
+          _self.enableButton('forward');
+        }
       } else {
         _self.disableButton('stop');
 
@@ -36748,6 +36781,27 @@ function () {
       }
     }
   }, {
+    key: "changeHeuristics",
+    value: function changeHeuristics() {
+      var selectedHeuristics = _self.heuristicsSelector.value;
+
+      _self.algorithmManager.changeHeuristics(selectedHeuristics);
+
+      if (_self.algorithmManager.validHeuristicsSelected()) {
+        _self.enableButton('play');
+
+        _self.enableButton('forward');
+      } else {
+        _self.disableButton('stop');
+
+        _self.disableButton('play');
+
+        _self.disableButton('pause');
+
+        _self.disableButton('forward');
+      }
+    }
+  }, {
     key: "hideHeuristicsMenu",
     value: function hideHeuristicsMenu() {
       _self.heuristicsContainerSelector.classList.add('d-none');
@@ -36756,6 +36810,20 @@ function () {
     key: "showHeuristicsMenu",
     value: function showHeuristicsMenu() {
       _self.heuristicsContainerSelector.classList.remove('d-none');
+
+      if (_self.algorithmManager.validHeuristicsSelected()) {
+        _self.enableButton('play');
+
+        _self.enableButton('forward');
+      } else {
+        _self.disableButton('stop');
+
+        _self.disableButton('play');
+
+        _self.disableButton('pause');
+
+        _self.disableButton('forward');
+      }
     }
   }, {
     key: "createCities",
@@ -36792,7 +36860,7 @@ function () {
         timeElapsedSelector: '#time_elapsed' //_self.stats.changeProperty('runSpeed', '0')
 
       };
-      this.stats = new _stats__WEBPACK_IMPORTED_MODULE_4__["StatsManager"](selectorsStats);
+      this.stats = new _stats__WEBPACK_IMPORTED_MODULE_3__["StatsManager"](selectorsStats);
       this.stats.updateStats();
     }
   }, {
@@ -36937,7 +37005,7 @@ function () {
         rndmX = Math.random() * (_self.grid.width - _self.grid.cityRadius);
         rndmY = Math.random() * (_self.grid.height - _self.grid.cityRadius);
 
-        _self.grid.addCity(new _city__WEBPACK_IMPORTED_MODULE_3__["City"]({
+        _self.grid.addCity(new _city__WEBPACK_IMPORTED_MODULE_2__["City"]({
           id: _self.grid.citiesArray.length + 1,
           x: verifyBorders(rndmX, _self.grid.width),
           y: verifyBorders(rndmY, _self.grid.height)
@@ -37267,98 +37335,6 @@ function () {
   }]);
 
   return Grid;
-}();
-
-
-
-/***/ }),
-
-/***/ "./src/heuristics/index.js":
-/*!*********************************!*\
-  !*** ./src/heuristics/index.js ***!
-  \*********************************/
-/*! exports provided: HeuristicsManager */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HeuristicsManager", function() { return HeuristicsManager; });
-/* harmony import */ var _kopt__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./kopt */ "./src/heuristics/kopt.js");
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/*
- * travelling_salesperson_sandbox
- * https://github.com/vbob/travelling_salesperson_sandbox
- * 
- * Copyright (c) 2018 Vitor Barth
- * Licensed under the MIT License
- * 
- */
-
-
-var HeuristicsManager = function HeuristicsManager() {
-  _classCallCheck(this, HeuristicsManager);
-
-  this.heuristicsList = [_kopt__WEBPACK_IMPORTED_MODULE_1__["KOpt"]];
-};
-
-
-
-/***/ }),
-
-/***/ "./src/heuristics/kopt.js":
-/*!********************************!*\
-  !*** ./src/heuristics/kopt.js ***!
-  \********************************/
-/*! exports provided: KOpt */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KOpt", function() { return KOpt; });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-/*
- * travelling_salesperson_sandbox
- * https://github.com/vbob/travelling_salesperson_sandbox
- * 
- * Copyright (c) 2018 Vitor Barth
- * Licensed under the MIT License
- * 
- */
-var _id = 'kopt';
-var _displayName = 'k-Opt';
-
-var KOpt =
-/*#__PURE__*/
-function () {
-  function KOpt() {
-    _classCallCheck(this, KOpt);
-  }
-
-  _createClass(KOpt, null, [{
-    key: "start",
-    value: function start(problem) {}
-  }, {
-    key: "step",
-    value: function step(problem) {}
-  }, {
-    key: "id",
-    get: function get() {
-      return _id;
-    }
-  }, {
-    key: "displayName",
-    get: function get() {
-      return _displayName;
-    }
-  }]);
-
-  return KOpt;
 }();
 
 
