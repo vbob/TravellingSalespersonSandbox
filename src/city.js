@@ -14,7 +14,11 @@ class City {
      * @memberof City
      */
     constructor(city) {
-        var { id, x, y } = city
+        var {
+            id,
+            x,
+            y
+        } = city
 
         if (isNaN(id) || isNaN(x) || isNaN(y))
             throw new Error('Not a city')
@@ -57,4 +61,6 @@ class City {
     }
 }
 
-export { City }
+export {
+    City
+}

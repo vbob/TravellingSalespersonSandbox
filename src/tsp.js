@@ -12,7 +12,6 @@ class TSP {
         this.frontier = new Array()
         this.citiesArray = citiesArray
         this.initialState = citiesArray[0]
-        console.log(citiesArray[0])
     }
 
     solution(node) {
@@ -29,8 +28,9 @@ class TSP {
 
     actions(node) {
         let sol = this.solution(node)
+        let actions = this.citiesArray.filter(city => !sol.find(solCity => city.equals(solCity)))
 
-        return this.citiesArray.filter(city => !sol.find(solCity => city.equals(solCity)))
+        return actions
     }
 
     goalTest(node) {
@@ -43,7 +43,8 @@ class TSP {
         status,
         message
     }) {
-        console.log('Exited with status ' + status + ': ' + message)
+        console.log('Exited with status ' + status)
+        console.log(message)
     }
 }
 

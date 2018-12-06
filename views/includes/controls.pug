@@ -15,12 +15,12 @@
             i.fas.fa-stop 
         a &nbsp;
 
-        // Forward Button
-        button#btn_backward.btn.btn-raised.btn-sm(type='button', data-toggle='tooltip', data-placement="bottom", title=__('backward'))
-            i#btn_backward_icon.fas.fa-step-backward 
-        a &nbsp;
-
         // Backward Button
+            button#btn_backward.btn.btn-raised.btn-sm(type='button', data-toggle='tooltip', data-placement="bottom", title=__('backward'))
+                i#btn_backward_icon.fas.fa-step-backward 
+            a &nbsp;
+
+        // Forward Button
         button#btn_forward.btn.btn-raised.btn-sm(type='button', data-toggle='tooltip', data-placement="bottom", title=__('forward'))
             i#btn_forward_icon.fas.fa-step-forward 
         a &nbsp;
@@ -32,11 +32,11 @@
     br
 
     // Execution Speed   
-    #exec_speed_container
-        p
-            .lead(style='font-size:.75em;') #{__('exec_speed')}:
-            span#exec_speed 
-            span %
+        #exec_speed_container
+            p
+                .lead(style='font-size:.75em;') #{__('exec_speed')}:
+                span#exec_speed 
+                span %
 
     #status_container
         p

@@ -8,13 +8,13 @@
  */
 
 import {
-    MinimumSpanningTree
-} from "./mst";
+    KOpt
+} from "./kopt";
 
 class HeuristicsManager {
     constructor() {
         this.heuristicsList = [
-            MinimumSpanningTree
+            KOpt
         ]
     }
 }

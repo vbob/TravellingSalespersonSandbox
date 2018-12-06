@@ -17,18 +17,11 @@ import {
     Grid
 } from './grid';
 
-import {
-    City
-} from './city'
 
 import {
     ControlPanel
 } from './control_panel';
 
-import {
-    PlotsManager,
-    Point
-} from './plots';
 
 let grid = new Grid('#cities_map_container')
 grid.draw()
@@ -48,6 +41,7 @@ let selectorsCPanel = {
 }
 
 let controlPanel = new ControlPanel(selectorsCPanel, grid)
+controlPanel.initialize()
 
 // let plots = new PlotsManager()
 // plots.createPlot('#covergence_plot', document.getElementById('main_stats').clientHeight * 2, document.getElementById('main_stats').clientHeight + 5)

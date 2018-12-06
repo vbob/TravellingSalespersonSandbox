@@ -26,7 +26,7 @@ class Grid {
         this.dragEnabled = true
 
         this.drag = d3.drag()
-            .subject(function (d) {
+            .subject(function(d) {
                 return d;
             })
             .on("start", this.dragStarted)
@@ -75,7 +75,7 @@ class Grid {
             .append('text')
             .attr('class', 'bottom-text')
             .text('')
-            .attr("transform", function (d) {
+            .attr("transform", function(d) {
                 return "translate(" + _this.width / 2 + "," + (_this.height - 5) + ")"
             })
             .style('font-size', _this.cityRadius * 1.2)
@@ -96,11 +96,11 @@ class Grid {
             .data(this.citiesArray)
             .enter()
             .append('g')
-            .attr("id", function (d) {
+            .attr("id", function(d) {
                 return `city${d.id}_cont`
             })
             .attr("class", 'city_cont')
-            .attr("transform", function (d) {
+            .attr("transform", function(d) {
                 return "translate(" + d.x + "," + d.y + ")"
             })
             .on('mouseenter', this.mouseenter)
@@ -108,7 +108,7 @@ class Grid {
             .call(this.drag)
             .append('circle')
             .attr('r', this.cityRadius)
-            .attr("id", function (d) {
+            .attr("id", function(d) {
                 return `city${d.id}`
             })
 
@@ -126,7 +126,7 @@ class Grid {
                     .append('text')
                     .attr('id', `city${d.id}_d`)
                     .attr('class', 'city_d')
-                    .style('font-size', this.cityRadius * 1)
+                    .style('font-size', Number(this.cityRadius) * 1)
                     .attr('visibility', 'hidden')
             })
     }
@@ -182,7 +182,7 @@ class Grid {
             d.x = x()
             d.y = y()
 
-            d3.select(this).attr("transform", function (d) {
+            d3.select(this).attr("transform", function(d) {
                 return "translate(" + d.x + "," + d.y + ")"
             })
             d3.select('.bottom-text').text(`x: ${d.x.toFixed(0)} y: ${d.y.toFixed(0)}`)
@@ -267,11 +267,15 @@ class Grid {
     }
 
     markCurrent(city) {
-        d3.selectAll('.current')
-            .classed('current', false)
+        _this.clearCurrent()
 
         d3.select(`#city${city.id}`)
             .classed('current', true)
+    }
+
+    clearCurrent() {
+        d3.selectAll('.current')
+            .classed('current', false)
     }
 
     showDistance(d) {
@@ -322,7 +326,6 @@ class Grid {
     }
 
     disableDrag() {
-        console.log('disable')
         _this.dragEnabled = false
     }
 

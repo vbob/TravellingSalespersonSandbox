@@ -11,11 +11,11 @@ import {
     SNode
 } from '../snode'
 
-let _id = 'dfs'
-let _displayName = 'Depht-First Search (DFS)'
-let _useHeuristics = false
+let _id = 'a_star'
+let _displayName = 'A*'
+let _useHeuristics = true
 
-class DFS {
+class AStar {
     static get id() {
         return _id
     }
@@ -26,6 +26,10 @@ class DFS {
 
     static get useHeuristics() {
         return _useHeuristics
+    }
+
+    static set heuristc(heuristic) {
+        this.heuristic = heuristic
     }
 
     static start(problem) {
@@ -64,5 +68,5 @@ class DFS {
 }
 
 export {
-    DFS
+    AStar
 }

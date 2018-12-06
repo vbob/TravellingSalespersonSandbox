@@ -26,7 +26,7 @@
     "step_number": "Número de Passos",
     "steps": "passos",
     "time_elapsed": "Tempo Decorrido",
-    "shortest_path": "Caminho Mais Curto",
+    "shortest_path": "Custo do Caminho Atual",
     "longest_path": "Caminho Mais Longo",
     "ram_usage": "Uso de Memória",
     "nodes": "nós",

@@ -31,7 +31,6 @@ class BFS {
     static start(problem) {
         let node = new SNode(problem.initialState, null, 0, 0)
         problem.frontier.push(node)
-        console.log(problem.frontier)
     }
 
     static step(problem) {
@@ -60,7 +59,7 @@ class BFS {
             return node
         }
 
-        
+
     }
 }
 

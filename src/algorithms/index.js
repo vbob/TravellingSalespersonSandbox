@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 /*
  * travelling_salesperson_sandbox
  * https://github.com/vbob/travelling_salesperson_sandbox
@@ -16,8 +17,17 @@ import {
 } from './dfs'
 
 import {
+    AStar
+} from './a_star'
+
+import {
+    KOpt
+} from './kopt'
+
+import {
     Subject
 } from 'rxjs';
+
 import {
     TSP
 } from '../tsp';
@@ -29,6 +39,22 @@ let currentNodeAnnouceSource = new Subject();
 
 let _self
 
+
+var startTime, endTime;
+
+function start() {
+    startTime = new Date();
+};
+
+function end() {
+    endTime = new Date();
+    var timeDiff = endTime - startTime; //in ms
+
+    // get seconds 
+    var seconds = Math.round(timeDiff);
+    return seconds
+}
+
 class AlgorithmManager {
     constructor(citiesArray) {
         _self = this
@@ -37,13 +63,31 @@ class AlgorithmManager {
 
         this.algorithmList = {
             bfs: BFS,
-            dfs: DFS
+            dfs: DFS,
+            a_star: AStar
+        }
+
+        this.heuristicsList = {
+            kopt: KOpt
         }
 
         this.initializeAnnoucers()
         this.selectedAlgorithm = ''
-        this.running = false;
+        this.selectedHeuristic = ''
+
+        this.status = 'stopped';
         this.currentNode = null
+
+        this.started = false
+
+        this.createStats()
+    }
+
+    createStats() {
+        this.stepNumber = 0
+        this.numberOfNodes = 0
+        this.timeElapsed = 0
+        this.currentPath = 0
     }
 
     initializeAnnoucers() {
@@ -54,10 +98,16 @@ class AlgorithmManager {
 
     announceStatus(status) {
         statusAnnounceSource.next(status)
+        _self.status = status
     }
 
-    announceStep(step) {
-        stepAnnounceSource.next(step)
+    announceStep() {
+        stepAnnounceSource.next({
+            stepNumber: _self.stepNumber,
+            numberOfNodes: _self.numberOfNodes,
+            timeElapsed: _self.timeElapsed,
+            currentPath: _self.currentPath.toFixed(0)
+        })
     }
 
     announceCurrentNode(node) {
@@ -66,15 +116,18 @@ class AlgorithmManager {
 
     changeAlgorithm(algorithm) {
         _self.selectedAlgorithm = algorithm
+        _self.stop()
         _self.problem = new TSP(_self.citiesArray)
+        _self.createStats()
     }
 
     play() {
-        if (_self.validAlgorithmSelected()) {
+        if (_self.validAlgorithmSelected() && _self.status == 'stopped') {
             _self.algorithmList[_self.selectedAlgorithm].start(_self.problem)
             _self.announceStatus('running')
-
-            _self.running = true
+            _self.step()
+        } else if (_self.validAlgorithmSelected() && _self.status == 'paused') {
+            _self.announceStatus('running')
             _self.step()
         }
     }
@@ -83,23 +136,42 @@ class AlgorithmManager {
         let isSelected = false
 
         for (let algorithm in _self.algorithmList) {
-            if (_self.selectedAlgorithm === _self.algorithmList[algorithm].id) isSelected = true
+            if (_self.selectedAlgorithm === _self.algorithmList[algorithm].id) {
+                isSelected = true;
+
+            }
         }
 
         return isSelected
     }
 
     pause() {
-        if (_self.validAlgorithmSelected())
-            console.log('pause')
+        if (_self.status == 'running')
+            _self.announceStatus('paused')
+
     }
 
     stop() {
-        this.border = new Array()
+        if (_self.status == 'running' || _self.status == 'paused' || _self.status == 'ended') {
+            _self.announceStatus('stopped')
+            _self.border = new Array()
+            _self.problem = new TSP(_self.citiesArray)
+            _self.started = false
+        }
+    }
+
+    end() {
+        _self.announceStatus('ended')
     }
 
     forward() {
-        console.log('forward')
+        if (_self.validAlgorithmSelected() && _self.status == 'stopped') {
+            _self.algorithmList[_self.selectedAlgorithm].start(_self.problem)
+            _self.announceStatus('paused')
+            _self.step()
+        } else if (_self.validAlgorithmSelected() && _self.status == 'paused') {
+            _self.step()
+        }
     }
 
     backward() {
@@ -109,14 +181,32 @@ class AlgorithmManager {
     step() {
         let currNode = _self.algorithmList[_self.selectedAlgorithm].step(_self.problem)
 
-        this.announceCurrentNode(currNode)
+        _self.stepNumber += 1
 
-        if (!_self.problem.goalTest(currNode))
+        _self.numberOfNodes = _self.problem.frontier.length;
+        _self.currentPath = currNode.pathCost;
+
+        if (_self.stepNumber % 10) {
+            _self.timeElapsed = (end() * (_self.stepNumber / 10)).toFixed(0)
+            start()
+        }
+
+        _self.announceCurrentNode(currNode)
+        _self.announceStep()
+
+        let algorithmCompleted = _self.problem.goalTest(currNode);
+
+        if (!algorithmCompleted && _self.status == 'running')
             setTimeout(() => {
-                this.step()
-            }, 1000)
+                if (_self.status == 'running') _self.step()
+            }, 1)
+
+        else if (algorithmCompleted) {
+            _self.end()
+        }
     }
 }
+
 
 export {
     AlgorithmManager

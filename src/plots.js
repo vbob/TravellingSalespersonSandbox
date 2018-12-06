@@ -121,7 +121,6 @@ class Plot {
 
     addPoint(point) {
         this.dataset.push(point)
-
         this.draw()
     }
 
