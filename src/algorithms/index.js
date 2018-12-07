@@ -21,6 +21,10 @@ import {
 } from './a_star'
 
 import {
+    MST
+} from './mst'
+
+import {
     KOpt
 } from './kopt'
 
@@ -68,7 +72,8 @@ class AlgorithmManager {
         }
 
         this.heuristicsList = {
-            kopt: KOpt
+            kopt: KOpt,
+            mst: MST
         }
 
         this.initializeAnnoucers()
@@ -221,7 +226,7 @@ class AlgorithmManager {
         if (!algorithmCompleted && _self.status == 'running')
             setTimeout(() => {
                 if (_self.status == 'running') _self.step()
-            }, 1)
+            }, 50)
 
         else if (algorithmCompleted) {
             _self.end()
@@ -230,7 +235,7 @@ class AlgorithmManager {
 
     calculateHeuristics(currNode) {
         _self.citiesArray.forEach(city => {
-            _self.heuristicsList[_self.selectedHeuristics].calculate(city, currNode)
+            _self.heuristicsList[_self.selectedHeuristics].calculate(_self.problem, city, currNode)
         })
     }
 }

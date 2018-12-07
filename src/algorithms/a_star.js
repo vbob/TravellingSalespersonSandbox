@@ -1,3 +1,5 @@
+/* eslint-disable require-jsdoc */
+/* eslint-disable func-style */
 /*
  * travelling_salesperson_sandbox
  * https://github.com/vbob/travelling_salesperson_sandbox
@@ -15,6 +17,22 @@ let _id = 'a_star'
 let _displayName = 'A*'
 let _useHeuristics = true
 
+
+function compareCities(a, b) {
+    return a.heuristics > b.heuristics
+}
+
+function addOrdered(frontier, newNode) {
+    if (frontier.length == 0)
+        frontier.push(newNode)
+
+    else
+        frontier.forEach((node, i) => {
+            if (node.pathCost + node.state.heuristics > newNode.pathCost + newNode.state.heuristics)
+                frontier.splice(i, 0, newNode)
+        })
+}
+
 class AStar {
     static get id() {
         return _id
@@ -26,10 +44,6 @@ class AStar {
 
     static get useHeuristics() {
         return _useHeuristics
-    }
-
-    static set heuristc(heuristic) {
-        this.heuristic = heuristic
     }
 
     static start(problem) {
@@ -48,10 +62,13 @@ class AStar {
         } else {
             let node = problem.frontier.shift()
 
-            problem.actions(node).forEach(action => {
-                let child = node.createChildNode(action, node.state.distanceTo(action), 0)
-                problem.frontier.unshift(child)
+            let actions = problem.actions(node)
+
+            actions.forEach(action => {
+                addOrdered(problem.frontier, node.createChildNode(action, node.state.distanceTo(action), 0))
             })
+
+            console.log(problem.frontier)
 
             if (problem.goalTest(node)) {
                 problem.finish({
