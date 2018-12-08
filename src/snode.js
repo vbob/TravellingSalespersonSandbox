@@ -6,19 +6,11 @@ class SNode {
     }
 
     createChildNode(state, cost) {
-        return new SNode(state, this, cost)
+        return new SNode(state, this, this.pathCost + cost)
     }
 
     getDistanceToOrigin() {
-        let distance = this.pathCost
-        let node = this
-
-        while (node.parent) {
-            distance += node.parent.pathCost
-            node = node.parent
-        }
-
-        return distance
+        return this.pathCost
     }
 }
 

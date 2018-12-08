@@ -37,9 +37,6 @@ class City {
      * @memberof City
      */
     distanceTo(otherCity) {
-        if (!(otherCity instanceof City))
-            throw new Error('Not a city')
-
         return Math.sqrt((otherCity.x - this.x) ** 2 + (otherCity.y - this.y) ** 2)
     }
 

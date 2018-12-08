@@ -21,7 +21,7 @@ class TSP {
         solution.unshift(node.state)
 
         while (node.parent) {
-            node.parent.cost += node.state.distanceTo(node.parent.state)
+            node.parent.cost = node.state.distanceTo(node.parent.state) + node.state.cost
             node = node.parent
             solution.unshift(node.state)
         }
@@ -43,7 +43,7 @@ class TSP {
         let sol = this.solution(node)
         let checkVisitedCities = this.citiesArray.filter(city => !sol.find(solCity => city.equals(solCity)))
 
-        return checkVisitedCities.length == 0 && sol[sol.length - 1] == this.initialState;
+        return checkVisitedCities.length == 0 && sol[sol.length - 1] == this.initialState && sol[0] == this.initialState;;
     }
 
     finish({

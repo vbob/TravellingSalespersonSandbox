@@ -18,9 +18,9 @@ let _displayName = 'A*'
 let _useHeuristics = true
 
 
-function compareCities(currNode) {
+function compareCities() {
     return (a, b) => {
-        return a.heuristics + currNode.state.distanceTo(a) > b.heuristics + currNode.state.distanceTo(b)
+        return a.heuristics < b.heuristics
     }
 }
 
@@ -55,11 +55,7 @@ class AStar {
         } else {
             let node = problem.frontier.shift()
 
-            let actions = problem.actions(node)
-
-            actions = actions.sort(compareCities(node))
-
-            actions.forEach(action => {
+            problem.actions(node).sort(compareCities()).forEach(action => {
                 let child = node.createChildNode(action, node.state.distanceTo(action))
                 problem.frontier.unshift(child)
             })

@@ -21,10 +21,6 @@ import {
 } from './a_star'
 
 import {
-    MST
-} from './mst'
-
-import {
     KOpt
 } from './kopt'
 
@@ -77,8 +73,7 @@ class AlgorithmManager {
         }
 
         this.heuristicsList = {
-            kopt: KOpt,
-            mst: MST
+            kopt: KOpt
         }
 
         this.initializeAnnoucers()
@@ -112,6 +107,7 @@ class AlgorithmManager {
     }
 
     announceStep() {
+        _self.stepNumber += 1
         stepAnnounceSource.next({
             stepNumber: _self.stepNumber,
             numberOfNodes: _self.numberOfNodes,
@@ -121,6 +117,9 @@ class AlgorithmManager {
     }
 
     announceCurrentNode(node) {
+        _self.currentPath = node.pathCost
+        _self.announceStep()
+        _self.currentNode = node
         currentNodeAnnouceSource.next(node)
     }
 
@@ -214,35 +213,34 @@ class AlgorithmManager {
         _self.currentPath = _self.currentNode.getDistanceToOrigin().toFixed(0)
 
         if (_self.algorithmList[_self.selectedAlgorithm].useHeuristics)
-            _self.calculateHeuristics(_self.currentNode)
+            _self.calculateHeuristics(_self.currentNode, () => {
+                _self.nextStep()
+            })
 
-        if (_self.stepNumber % 10) {
-            _self.timeElapsed = (end() * (_self.stepNumber / 10)).toFixed(0)
-            start()
-        }
+        else
+            _self.nextStep()
+    }
 
+    nextStep() {
         _self.announceCurrentNode(_self.currentNode)
-        _self.announceStep()
 
         let algorithmCompleted = _self.problem.goalTest(_self.currentNode);
 
         if (algorithmCompleted) {
             _self.end()
         } else {
-            _self.stepNumber += 1
             _self.currentNode = _self.algorithmList[_self.selectedAlgorithm].step(_self.problem)
 
             if (_self.status == 'running')
                 setTimeout(() => {
                     _self.step()
-                }, 500)
+                }, 100)
         }
     }
 
-    calculateHeuristics(currNode) {
-        _self.citiesArray.forEach(city => {
-            city.setHeuristics(_self.heuristicsList[_self.selectedHeuristics].calculate(_self.problem, city, currNode))
-        })
+    calculateHeuristics(currNode, cb) {
+        _self.heuristicsList[_self.selectedHeuristics].calculate(_self.problem, currNode, _self.announceCurrentNode, _self.announceStep)
+        cb()
     }
 }
 

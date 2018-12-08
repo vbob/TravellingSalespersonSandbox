@@ -98,7 +98,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "/* City Color */\r\n\r\n.map circle {\r\n    fill: #1976d2\r\n}\r\n\r\n.map circle.hover {\r\n    fill: #CC769B;\r\n}\r\n\r\n\r\n/* City Color when Draggin */\r\n\r\n.map circle.dragging {\r\n    fill: #ba2d65;\r\n}\r\n\r\n.map circle.current {\r\n    fill: #ba2d65;\r\n    stroke: #ba2d65;\r\n}\r\n\r\n\r\n/* Grid Color */\r\n\r\n.axis line {\r\n    fill: none;\r\n    stroke-width: 0px;\r\n    /* dont show grid */\r\n    stroke: #bbb;\r\n    shape-rendering: crispEdges;\r\n}\r\n\r\nsvg text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    fill: white;\r\n}\r\n\r\n.bottom-text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    alignment-baseline: baseline;\r\n    fill: #9E9E9E\r\n}\r\n\r\n.city_d {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: start;\r\n    alignment-baseline: middle;\r\n    fill: #9E9E9E\r\n}", ""]);
+exports.push([module.i, "/* City Color */\r\n\r\n.map circle {\r\n    fill: #1976d2\r\n}\r\n\r\n.map circle.hover {\r\n    fill: #CC769B;\r\n}\r\n\r\n\r\n/* City Color when Draggin */\r\n\r\n.map circle.dragging {\r\n    fill: #ba2d65;\r\n}\r\n\r\n.map circle.current {\r\n    fill: #ba2d65;\r\n    stroke: #ba2d65;\r\n}\r\n\r\n\r\n/* Grid Color */\r\n\r\n.axis line {\r\n    fill: none;\r\n    stroke-width: 0px;\r\n    /* dont show grid */\r\n    stroke: #444;\r\n    shape-rendering: crispEdges;\r\n}\r\n\r\nsvg text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    fill: white;\r\n}\r\n\r\n.bottom-text {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: middle;\r\n    alignment-baseline: baseline;\r\n    fill: #9E9E9E\r\n}\r\n\r\n.city_d {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    text-anchor: start;\r\n    alignment-baseline: middle;\r\n    fill: #9E9E9E\r\n}", ""]);
 
 // exports
 
@@ -35945,9 +35945,9 @@ var _id = 'a_star';
 var _displayName = 'A*';
 var _useHeuristics = true;
 
-function compareCities(currNode) {
+function compareCities() {
   return function (a, b) {
-    return a.heuristics + currNode.state.distanceTo(a) > b.heuristics + currNode.state.distanceTo(b);
+    return a.heuristics < b.heuristics;
   };
 }
 
@@ -35976,9 +35976,7 @@ function () {
         return null;
       } else {
         var node = problem.frontier.shift();
-        var actions = problem.actions(node);
-        actions = actions.sort(compareCities(node));
-        actions.forEach(function (action) {
+        problem.actions(node).sort(compareCities()).forEach(function (action) {
           var child = node.createChildNode(action, node.state.distanceTo(action));
           problem.frontier.unshift(child);
         });
@@ -36218,11 +36216,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bfs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bfs */ "./src/algorithms/bfs.js");
 /* harmony import */ var _dfs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dfs */ "./src/algorithms/dfs.js");
 /* harmony import */ var _a_star__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./a_star */ "./src/algorithms/a_star.js");
-/* harmony import */ var _mst__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mst */ "./src/algorithms/mst.js");
-/* harmony import */ var _kopt__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./kopt */ "./src/algorithms/kopt.js");
-/* harmony import */ var _ucs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ucs */ "./src/algorithms/ucs.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _tsp__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../tsp */ "./src/tsp.js");
+/* harmony import */ var _kopt__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./kopt */ "./src/algorithms/kopt.js");
+/* harmony import */ var _ucs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ucs */ "./src/algorithms/ucs.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _tsp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../tsp */ "./src/tsp.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -36246,10 +36243,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-
-var statusAnnounceSource = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
-var stepAnnounceSource = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
-var currentNodeAnnouceSource = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
+var statusAnnounceSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+var stepAnnounceSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+var currentNodeAnnouceSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
 
 var _self;
 
@@ -36281,12 +36277,11 @@ function () {
     this.algorithmList = {
       bfs: _bfs__WEBPACK_IMPORTED_MODULE_0__["BFS"],
       dfs: _dfs__WEBPACK_IMPORTED_MODULE_1__["DFS"],
-      ucs: _ucs__WEBPACK_IMPORTED_MODULE_5__["UCS"],
+      ucs: _ucs__WEBPACK_IMPORTED_MODULE_4__["UCS"],
       a_star: _a_star__WEBPACK_IMPORTED_MODULE_2__["AStar"]
     };
     this.heuristicsList = {
-      kopt: _kopt__WEBPACK_IMPORTED_MODULE_4__["KOpt"],
-      mst: _mst__WEBPACK_IMPORTED_MODULE_3__["MST"]
+      kopt: _kopt__WEBPACK_IMPORTED_MODULE_3__["KOpt"]
     };
     this.initializeAnnoucers();
     this.selectedAlgorithm = '';
@@ -36321,6 +36316,7 @@ function () {
   }, {
     key: "announceStep",
     value: function announceStep() {
+      _self.stepNumber += 1;
       stepAnnounceSource.next({
         stepNumber: _self.stepNumber,
         numberOfNodes: _self.numberOfNodes,
@@ -36331,6 +36327,11 @@ function () {
   }, {
     key: "announceCurrentNode",
     value: function announceCurrentNode(node) {
+      _self.currentPath = node.pathCost;
+
+      _self.announceStep();
+
+      _self.currentNode = node;
       currentNodeAnnouceSource.next(node);
     }
   }, {
@@ -36340,7 +36341,7 @@ function () {
 
       _self.stop();
 
-      _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_7__["TSP"](_self.citiesArray);
+      _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_6__["TSP"](_self.citiesArray);
 
       _self.createStats();
     }
@@ -36351,7 +36352,7 @@ function () {
 
       _self.stop();
 
-      _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_7__["TSP"](_self.citiesArray);
+      _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_6__["TSP"](_self.citiesArray);
 
       _self.createStats();
     }
@@ -36408,7 +36409,7 @@ function () {
         _self.announceStatus('stopped');
 
         _self.border = new Array();
-        _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_7__["TSP"](_self.citiesArray);
+        _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_6__["TSP"](_self.citiesArray);
         _self.started = false;
       }
     }
@@ -36440,35 +36441,32 @@ function () {
     value: function step() {
       _self.numberOfNodes = _self.problem.frontier.length;
       _self.currentPath = _self.currentNode.getDistanceToOrigin().toFixed(0);
-      if (_self.algorithmList[_self.selectedAlgorithm].useHeuristics) _self.calculateHeuristics(_self.currentNode);
-
-      if (_self.stepNumber % 10) {
-        _self.timeElapsed = (end() * (_self.stepNumber / 10)).toFixed(0);
-        start();
-      }
-
+      if (_self.algorithmList[_self.selectedAlgorithm].useHeuristics) _self.calculateHeuristics(_self.currentNode, function () {
+        _self.nextStep();
+      });else _self.nextStep();
+    }
+  }, {
+    key: "nextStep",
+    value: function nextStep() {
       _self.announceCurrentNode(_self.currentNode);
-
-      _self.announceStep();
 
       var algorithmCompleted = _self.problem.goalTest(_self.currentNode);
 
       if (algorithmCompleted) {
         _self.end();
       } else {
-        _self.stepNumber += 1;
         _self.currentNode = _self.algorithmList[_self.selectedAlgorithm].step(_self.problem);
         if (_self.status == 'running') setTimeout(function () {
           _self.step();
-        }, 500);
+        }, 100);
       }
     }
   }, {
     key: "calculateHeuristics",
-    value: function calculateHeuristics(currNode) {
-      _self.citiesArray.forEach(function (city) {
-        city.setHeuristics(_self.heuristicsList[_self.selectedHeuristics].calculate(_self.problem, city, currNode));
-      });
+    value: function calculateHeuristics(currNode, cb) {
+      _self.heuristicsList[_self.selectedHeuristics].calculate(_self.problem, currNode, _self.announceCurrentNode, _self.announceStep);
+
+      cb();
     }
   }]);
 
@@ -36489,11 +36487,13 @@ function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "KOpt", function() { return KOpt; });
+/* harmony import */ var _snode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../snode */ "./src/snode.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 
 /*
  * travelling_salesperson_sandbox
@@ -36503,8 +36503,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  * Licensed under the MIT License
  * 
  */
+
 var _id = 'kopt';
-var _displayName = 'k-Opt';
+var _displayName = '2-Opt';
+
+function twoOptSwap(route, i, k) {
+  if (i == 0 || i == route.length - 1 || k == 0 || k == route.length - 1 || i == k) return route;
+  var newRoute = route.slice();
+  var j = newRoute[k];
+  newRoute[k] = newRoute[i];
+  newRoute[i] = j;
+  return newRoute;
+}
+
+function calculateTotalDistance(route) {
+  var distance = 0;
+  route.forEach(function (element, i) {
+    if (i > 1) distance += element.distanceTo(route[i - 1]);
+  });
+  return distance;
+}
 
 var KOpt =
 /*#__PURE__*/
@@ -36515,9 +36533,43 @@ function () {
 
   _createClass(KOpt, null, [{
     key: "calculate",
-    value: function calculate(city, currentNode) {
-      console.log(city);
-      console.log(currentNode);
+    value: function calculate(problem, currentNode, announceNode, announceStep) {
+      if (problem.goalTest(currentNode)) {
+        var lastExistingRoute = problem.solution(currentNode);
+        var existingRoute = problem.solution(currentNode);
+        var optimizationMade = false;
+
+        do {
+          optimizationMade = false;
+
+          for (var i = 1; i < problem.citiesArray.length; i++) {
+            var _loop = function _loop(k) {
+              var newRoute = twoOptSwap(existingRoute, i, k);
+              var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0);
+              newRoute.forEach(function (city, i) {
+                if (i > 0) node = node.createChildNode(city, node.state.distanceTo(city));
+              });
+
+              if (problem.goalTest(node) && node.pathCost < currentNode.pathCost) {
+                console.log('want announce');
+                console.log("announced node");
+                console.log(node);
+                optimizationMade = true;
+                existingRoute = newRoute;
+                currentNode = node;
+                announceNode(node);
+                announceStep();
+              }
+            };
+
+            for (var k = 1; k < problem.citiesArray.length; k++) {
+              _loop(k);
+            }
+          }
+        } while (optimizationMade);
+
+        return currentNode;
+      }
     }
   }, {
     key: "id",
@@ -36538,27 +36590,22 @@ function () {
 
 /***/ }),
 
-/***/ "./src/algorithms/mst.js":
+/***/ "./src/algorithms/ucs.js":
 /*!*******************************!*\
-  !*** ./src/algorithms/mst.js ***!
+  !*** ./src/algorithms/ucs.js ***!
   \*******************************/
-/*! exports provided: MST */
+/*! exports provided: UCS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MST", function() { return MST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UCS", function() { return UCS; });
+/* harmony import */ var _snode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../snode */ "./src/snode.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-/* eslint-disable max-classes-per-file */
-
-/* eslint-disable require-jsdoc */
-
-/* eslint-disable func-style */
 
 /*
  * travelling_salesperson_sandbox
@@ -36568,59 +36615,56 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * Licensed under the MIT License
  * 
  */
-var _id = 'mst';
-var _displayName = 'Minimum Spanning Tree (MST)';
 
-var Edge = function Edge(a, b) {
-  _classCallCheck(this, Edge);
+var _id = 'ucs';
+var _displayName = 'Uniform Cost Search (UCS)';
+var _useHeuristics = false;
 
-  this.A = a;
-  this.B = b;
-  this.distance = a.distanceTo(b);
-};
-
-function addOrdered(edges, newEdge) {
-  if (edges.length == 0) edges.push(newEdge);else edges.forEach(function (edge, i) {
-    if (edge.distance > newEdge.distance && !edges.find(function (element) {
-      return element.A == newEdge.A && element.B == newEdge.B;
-    })) edges.splice(i, 0, newEdge);
-  });
+function compareCities(node) {
+  return function (a, b) {
+    return node.state.distanceTo(a) < node.state.distanceTo(b);
+  };
 }
 
-function createEdges(actions, cb) {
-  var edges = new Array();
-  actions.forEach(function (actionOuter, i) {
-    actions.forEach(function (actionInner, j) {
-      if (actionInner != actionOuter) addOrdered(edges, new Edge(actionInner, actionOuter));
-    });
-  });
-  return edges;
-}
-
-var MST =
+var UCS =
 /*#__PURE__*/
 function () {
-  function MST() {
-    _classCallCheck(this, MST);
+  function UCS() {
+    _classCallCheck(this, UCS);
   }
 
-  _createClass(MST, null, [{
-    key: "calculate",
-    value: function calculate(problem, city, currentNode) {
-      var child = currentNode.createChildNode(city, currentNode.state.distanceTo(city), 0);
-      var h = 0;
-      var actions = problem.actions(child);
-      var edges = createEdges(actions);
-      var subgraph = new Array();
-      edges.forEach(function (edge) {
-        if (!subgraph.find(function (element) {
-          return element.A == edge.A;
-        }) || !subgraph.find(function (element) {
-          return element.B == edge.B;
-        })) h += edge.distance;
-        subgraph.push(edge);
-      });
-      return h;
+  _createClass(UCS, null, [{
+    key: "start",
+    value: function start(problem) {
+      var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0);
+      problem.frontier.push(node);
+      return node;
+    }
+  }, {
+    key: "step",
+    value: function step(problem) {
+      if (problem.frontier.length == 0) {
+        problem.finish({
+          status: 1,
+          message: 'border is empty'
+        });
+        return null;
+      } else {
+        var node = problem.frontier.shift();
+        problem.actions(node).sort(compareCities(node)).forEach(function (action) {
+          var child = node.createChildNode(action, node.state.distanceTo(action));
+          problem.frontier.unshift(child);
+        });
+
+        if (problem.goalTest(node)) {
+          problem.finish({
+            status: 1,
+            message: problem.solution(node)
+          });
+        }
+
+        return node;
+      }
     }
   }, {
     key: "id",
@@ -36632,23 +36676,17 @@ function () {
     get: function get() {
       return _displayName;
     }
+  }, {
+    key: "useHeuristics",
+    get: function get() {
+      return _useHeuristics;
+    }
   }]);
 
-  return MST;
+  return UCS;
 }();
 
 
-
-/***/ }),
-
-/***/ "./src/algorithms/ucs.js":
-/*!*******************************!*\
-  !*** ./src/algorithms/ucs.js ***!
-  \*******************************/
-/*! exports provided: UCS */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'D:\\travelling_salesperson_sandbox\\src\\algorithms\\ucs.js'");
 
 /***/ }),
 
@@ -36708,7 +36746,6 @@ function () {
   _createClass(City, [{
     key: "distanceTo",
     value: function distanceTo(otherCity) {
-      if (!(otherCity instanceof City)) throw new Error('Not a city');
       return Math.sqrt(Math.pow(otherCity.x - this.x, 2) + Math.pow(otherCity.y - this.y, 2));
     }
     /**
@@ -37405,7 +37442,7 @@ function () {
     key: "drawConnection",
     value: function drawConnection(c1, c2) {
       d3__WEBPACK_IMPORTED_MODULE_0__["selectAll"]("#conn".concat(c1.id, "-").concat(c2.id)).remove();
-      d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.temp-paths').append('line').attr('class', 'conn_city').attr('id', "tempConn".concat(c1.id, "-").concat(c2.id)).style('stroke', '#e0e0e0').style('stroke-width', "".concat(_this.cityRadius / 5, "px")).style('stroke-dasharray', "3,5").attr("x1", c1.x).attr("y1", c1.y).attr("x2", c2.x).attr("y2", c2.y);
+      d3__WEBPACK_IMPORTED_MODULE_0__["select"]('.temp-paths').append('line').attr('class', 'conn_city').attr('id', "tempConn".concat(c1.id, "-").concat(c2.id)).style('stroke', '#444').style('stroke-width', "".concat(_this.cityRadius / 5, "px")).style('stroke-dasharray', "3,5").attr("x1", c1.x).attr("y1", c1.y).attr("x2", c2.x).attr("y2", c2.y);
     }
   }, {
     key: "deleteConnections",
@@ -37733,20 +37770,12 @@ function () {
   _createClass(SNode, [{
     key: "createChildNode",
     value: function createChildNode(state, cost) {
-      return new SNode(state, this, cost);
+      return new SNode(state, this, this.pathCost + cost);
     }
   }, {
     key: "getDistanceToOrigin",
     value: function getDistanceToOrigin() {
-      var distance = this.pathCost;
-      var node = this;
-
-      while (node.parent) {
-        distance += node.parent.pathCost;
-        node = node.parent;
-      }
-
-      return distance;
+      return this.pathCost;
     }
   }]);
 
@@ -37896,7 +37925,7 @@ function () {
       solution.unshift(node.state);
 
       while (node.parent) {
-        node.parent.cost += node.state.distanceTo(node.parent.state);
+        node.parent.cost = node.state.distanceTo(node.parent.state) + node.state.cost;
         node = node.parent;
         solution.unshift(node.state);
       }
@@ -37924,7 +37953,8 @@ function () {
           return city.equals(solCity);
         });
       });
-      return checkVisitedCities.length == 0 && sol[sol.length - 1] == this.initialState;
+      return checkVisitedCities.length == 0 && sol[sol.length - 1] == this.initialState && sol[0] == this.initialState;
+      ;
     }
   }, {
     key: "finish",

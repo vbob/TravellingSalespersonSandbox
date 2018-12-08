@@ -329,6 +329,7 @@ class ControlPanel {
     }
 
     changeNode(node) {
+        
         _self.grid.markCurrent(node.state)
         _self.grid.deleteConnections()
 

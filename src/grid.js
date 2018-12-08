@@ -252,7 +252,7 @@ class Grid {
             .append('line')
             .attr('class', 'conn_city')
             .attr('id', `tempConn${c1.id}-${c2.id}`)
-            .style('stroke', '#e0e0e0')
+            .style('stroke', '#444')
             .style('stroke-width', `${ _this.cityRadius / 5}px`)
             .style('stroke-dasharray', "3,5")
             .attr("x1", c1.x)

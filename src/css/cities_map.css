@@ -27,7 +27,7 @@
     fill: none;
     stroke-width: 0px;
     /* dont show grid */
-    stroke: #bbb;
+    stroke: #444;
     shape-rendering: crispEdges;
 }
 
