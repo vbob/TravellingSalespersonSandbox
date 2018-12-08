@@ -48,7 +48,10 @@ class TSP {
     }) {
         message.push(this.initialState)
         console.log('Exited with status ' + status)
-        this.solution = message
+
+        this.solution = () => {
+            return message
+        }
     }
 }
 

@@ -36673,12 +36673,6 @@ var _id = 'ucs';
 var _displayName = 'Uniform Cost Search (UCS)';
 var _useHeuristics = false;
 
-function compareCities(node) {
-  return function (a, b) {
-    return node.state.distanceTo(a) < node.state.distanceTo(b);
-  };
-}
-
 var UCS =
 /*#__PURE__*/
 function () {
@@ -36704,7 +36698,7 @@ function () {
         return null;
       } else {
         var node = problem.frontier.shift();
-        problem.actions(node).sort(compareCities(node)).forEach(function (action) {
+        problem.actions(node).forEach(function (action) {
           var child = node.createChildNode(action, node.state.distanceTo(action));
           problem.frontier.unshift(child);
         });
@@ -38022,7 +38016,10 @@ function () {
           message = _ref.message;
       message.push(this.initialState);
       console.log('Exited with status ' + status);
-      this.solution = message;
+
+      this.solution = function () {
+        return message;
+      };
     }
   }]);
 
