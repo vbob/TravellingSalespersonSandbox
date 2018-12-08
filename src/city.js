@@ -59,6 +59,10 @@ class City {
     getHeuristics() {
         return this.heuristics
     }
+
+    setHeuristics(heuristics) {
+        this.heuristics = heuristics
+    }
 }
 
 export {

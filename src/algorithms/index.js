@@ -29,6 +29,10 @@ import {
 } from './kopt'
 
 import {
+    UCS
+} from './ucs'
+
+import {
     Subject
 } from 'rxjs';
 
@@ -68,6 +72,7 @@ class AlgorithmManager {
         this.algorithmList = {
             bfs: BFS,
             dfs: DFS,
+            ucs: UCS,
             a_star: AStar
         }
 
@@ -92,7 +97,7 @@ class AlgorithmManager {
         this.stepNumber = 0
         this.numberOfNodes = 0
         this.timeElapsed = 0
-        this.currentPath = 0
+        this.currentPath = 0.00
     }
 
     initializeAnnoucers() {
@@ -111,7 +116,7 @@ class AlgorithmManager {
             stepNumber: _self.stepNumber,
             numberOfNodes: _self.numberOfNodes,
             timeElapsed: _self.timeElapsed,
-            currentPath: _self.currentPath.toFixed(0)
+            currentPath: _self.currentPath
         })
     }
 
@@ -135,9 +140,10 @@ class AlgorithmManager {
 
     play() {
         if (_self.validAlgorithmSelected() && _self.status == 'stopped') {
-            _self.algorithmList[_self.selectedAlgorithm].start(_self.problem)
+            _self.currentNode = _self.algorithmList[_self.selectedAlgorithm].start(_self.problem)
             _self.announceStatus('running')
             _self.step()
+
         } else if (_self.validAlgorithmSelected() && _self.status == 'paused') {
             _self.announceStatus('running')
             _self.step()
@@ -186,11 +192,14 @@ class AlgorithmManager {
 
     end() {
         _self.announceStatus('ended')
+        let distance = 0;
+
+
     }
 
     forward() {
         if (_self.validAlgorithmSelected() && _self.status == 'stopped') {
-            _self.algorithmList[_self.selectedAlgorithm].start(_self.problem)
+            _self.currentNode = _self.algorithmList[_self.selectedAlgorithm].start(_self.problem)
             _self.announceStatus('paused')
             _self.step()
         } else if (_self.validAlgorithmSelected() && _self.status == 'paused') {
@@ -203,39 +212,39 @@ class AlgorithmManager {
     }
 
     step() {
-        let currNode = _self.algorithmList[_self.selectedAlgorithm].step(_self.problem)
-
-        _self.stepNumber += 1
-
         _self.numberOfNodes = _self.problem.frontier.length;
-        _self.currentPath = currNode.pathCost;
+
+        _self.currentPath = _self.currentNode.getDistanceToOrigin().toFixed(0)
 
         if (_self.algorithmList[_self.selectedAlgorithm].useHeuristics)
-            _self.calculateHeuristics(currNode)
+            _self.calculateHeuristics(_self.currentNode)
 
         if (_self.stepNumber % 10) {
             _self.timeElapsed = (end() * (_self.stepNumber / 10)).toFixed(0)
             start()
         }
 
-        _self.announceCurrentNode(currNode)
+        _self.announceCurrentNode(_self.currentNode)
         _self.announceStep()
 
-        let algorithmCompleted = _self.problem.goalTest(currNode);
+        let algorithmCompleted = _self.problem.goalTest(_self.currentNode);
 
-        if (!algorithmCompleted && _self.status == 'running')
-            setTimeout(() => {
-                if (_self.status == 'running') _self.step()
-            }, 50)
-
-        else if (algorithmCompleted) {
+        if (algorithmCompleted) {
             _self.end()
+        } else {
+            _self.stepNumber += 1
+            _self.currentNode = _self.algorithmList[_self.selectedAlgorithm].step(_self.problem)
+
+            if (_self.status == 'running')
+                setTimeout(() => {
+                    _self.step()
+                }, 500)
         }
     }
 
     calculateHeuristics(currNode) {
         _self.citiesArray.forEach(city => {
-            _self.heuristicsList[_self.selectedHeuristics].calculate(_self.problem, city, currNode)
+            city.setHeuristics(_self.heuristicsList[_self.selectedHeuristics].calculate(_self.problem, city, currNode))
         })
     }
 }

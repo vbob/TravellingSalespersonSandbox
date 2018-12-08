@@ -18,19 +18,10 @@ let _displayName = 'A*'
 let _useHeuristics = true
 
 
-function compareCities(a, b) {
-    return a.heuristics > b.heuristics
-}
-
-function addOrdered(frontier, newNode) {
-    if (frontier.length == 0)
-        frontier.push(newNode)
-
-    else
-        frontier.forEach((node, i) => {
-            if (node.pathCost + node.state.heuristics > newNode.pathCost + newNode.state.heuristics)
-                frontier.splice(i, 0, newNode)
-        })
+function compareCities(currNode) {
+    return (a, b) => {
+        return a.heuristics + currNode.state.distanceTo(a) > b.heuristics + currNode.state.distanceTo(b)
+    }
 }
 
 class AStar {
@@ -47,8 +38,10 @@ class AStar {
     }
 
     static start(problem) {
-        let node = new SNode(problem.initialState, null, 0, 0)
+        let node = new SNode(problem.initialState, null, 0)
         problem.frontier.push(node)
+
+        return node;
     }
 
     static step(problem) {
@@ -64,11 +57,12 @@ class AStar {
 
             let actions = problem.actions(node)
 
-            actions.forEach(action => {
-                addOrdered(problem.frontier, node.createChildNode(action, node.state.distanceTo(action), 0))
-            })
+            actions = actions.sort(compareCities(node))
 
-            console.log(problem.frontier)
+            actions.forEach(action => {
+                let child = node.createChildNode(action, node.state.distanceTo(action))
+                problem.frontier.unshift(child)
+            })
 
             if (problem.goalTest(node)) {
                 problem.finish({

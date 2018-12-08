@@ -1,13 +1,24 @@
 class SNode {
-    constructor(state, parent, pathCost, heuristics) {
+    constructor(state, parent, pathCost) {
         this.state = state
         this.parent = parent
         this.pathCost = pathCost
-        this.heuristics = heuristics
     }
 
-    createChildNode(state, cost, heuristics) {
-        return new SNode(state, this, this.pathCost + cost, heuristics)
+    createChildNode(state, cost) {
+        return new SNode(state, this, this.pathCost + cost)
+    }
+
+    getDistanceToOrigin() {
+        let distance = this.pathCost
+        let node = this
+
+        while (node.parent) {
+            distance += node.parent.pathCost
+            node = node.parent
+        }
+
+        return distance
     }
 }
 

@@ -65,7 +65,6 @@ class MST {
 
         let h = 0
 
-        let currCity = city
         let actions = problem.actions(child)
 
         let edges = createEdges(actions)
@@ -82,7 +81,7 @@ class MST {
             subgraph.push(edge)
         });
 
-        city.heuristics = h;
+        return h;
     }
 }
 

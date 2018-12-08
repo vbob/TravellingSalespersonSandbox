@@ -16,9 +16,12 @@ class TSP {
 
     solution(node) {
         let solution = new Array()
+        node.state.cost = 0
+
         solution.unshift(node.state)
 
         while (node.parent) {
+            node.parent.cost += node.state.distanceTo(node.parent.state)
             node = node.parent
             solution.unshift(node.state)
         }
@@ -43,8 +46,9 @@ class TSP {
         status,
         message
     }) {
+        message.push(this.initialState)
         console.log('Exited with status ' + status)
-        console.log(message)
+        this.solution = message
     }
 }
 

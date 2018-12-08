@@ -29,8 +29,10 @@ class DFS {
     }
 
     static start(problem) {
-        let node = new SNode(problem.initialState, null, 0, 0)
+        let node = new SNode(problem.initialState, null, 0)
         problem.frontier.push(node)
+
+        return node
     }
 
     static step(problem) {
@@ -45,7 +47,7 @@ class DFS {
             let node = problem.frontier.shift()
 
             problem.actions(node).forEach(action => {
-                let child = node.createChildNode(action, node.state.distanceTo(action), 0)
+                let child = node.createChildNode(action, node.state.distanceTo(action))
                 problem.frontier.unshift(child)
             })
 

@@ -35945,14 +35945,10 @@ var _id = 'a_star';
 var _displayName = 'A*';
 var _useHeuristics = true;
 
-function compareCities(a, b) {
-  return a.heuristics > b.heuristics;
-}
-
-function addOrdered(frontier, newNode) {
-  if (frontier.length == 0) frontier.push(newNode);else frontier.forEach(function (node, i) {
-    if (node.pathCost + node.state.heuristics > newNode.pathCost + newNode.state.heuristics) frontier.splice(i, 0, newNode);
-  });
+function compareCities(currNode) {
+  return function (a, b) {
+    return a.heuristics + currNode.state.distanceTo(a) > b.heuristics + currNode.state.distanceTo(b);
+  };
 }
 
 var AStar =
@@ -35965,8 +35961,9 @@ function () {
   _createClass(AStar, null, [{
     key: "start",
     value: function start(problem) {
-      var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0, 0);
+      var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0);
       problem.frontier.push(node);
+      return node;
     }
   }, {
     key: "step",
@@ -35980,10 +35977,11 @@ function () {
       } else {
         var node = problem.frontier.shift();
         var actions = problem.actions(node);
+        actions = actions.sort(compareCities(node));
         actions.forEach(function (action) {
-          addOrdered(problem.frontier, node.createChildNode(action, node.state.distanceTo(action), 0));
+          var child = node.createChildNode(action, node.state.distanceTo(action));
+          problem.frontier.unshift(child);
         });
-        console.log(problem.frontier);
 
         if (problem.goalTest(node)) {
           problem.finish({
@@ -36059,8 +36057,9 @@ function () {
   _createClass(BFS, null, [{
     key: "start",
     value: function start(problem) {
-      var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0, 0);
+      var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0);
       problem.frontier.push(node);
+      return node;
     }
   }, {
     key: "step",
@@ -36152,8 +36151,9 @@ function () {
   _createClass(DFS, null, [{
     key: "start",
     value: function start(problem) {
-      var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0, 0);
+      var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0);
       problem.frontier.push(node);
+      return node;
     }
   }, {
     key: "step",
@@ -36167,7 +36167,7 @@ function () {
       } else {
         var node = problem.frontier.shift();
         problem.actions(node).forEach(function (action) {
-          var child = node.createChildNode(action, node.state.distanceTo(action), 0);
+          var child = node.createChildNode(action, node.state.distanceTo(action));
           problem.frontier.unshift(child);
         });
 
@@ -36220,8 +36220,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _a_star__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./a_star */ "./src/algorithms/a_star.js");
 /* harmony import */ var _mst__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mst */ "./src/algorithms/mst.js");
 /* harmony import */ var _kopt__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./kopt */ "./src/algorithms/kopt.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var _tsp__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../tsp */ "./src/tsp.js");
+/* harmony import */ var _ucs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./ucs */ "./src/algorithms/ucs.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _tsp__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../tsp */ "./src/tsp.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -36245,9 +36246,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
-var statusAnnounceSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
-var stepAnnounceSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
-var currentNodeAnnouceSource = new rxjs__WEBPACK_IMPORTED_MODULE_5__["Subject"]();
+
+var statusAnnounceSource = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
+var stepAnnounceSource = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
+var currentNodeAnnouceSource = new rxjs__WEBPACK_IMPORTED_MODULE_6__["Subject"]();
 
 var _self;
 
@@ -36279,6 +36281,7 @@ function () {
     this.algorithmList = {
       bfs: _bfs__WEBPACK_IMPORTED_MODULE_0__["BFS"],
       dfs: _dfs__WEBPACK_IMPORTED_MODULE_1__["DFS"],
+      ucs: _ucs__WEBPACK_IMPORTED_MODULE_5__["UCS"],
       a_star: _a_star__WEBPACK_IMPORTED_MODULE_2__["AStar"]
     };
     this.heuristicsList = {
@@ -36300,7 +36303,7 @@ function () {
       this.stepNumber = 0;
       this.numberOfNodes = 0;
       this.timeElapsed = 0;
-      this.currentPath = 0;
+      this.currentPath = 0.00;
     }
   }, {
     key: "initializeAnnoucers",
@@ -36322,7 +36325,7 @@ function () {
         stepNumber: _self.stepNumber,
         numberOfNodes: _self.numberOfNodes,
         timeElapsed: _self.timeElapsed,
-        currentPath: _self.currentPath.toFixed(0)
+        currentPath: _self.currentPath
       });
     }
   }, {
@@ -36337,7 +36340,7 @@ function () {
 
       _self.stop();
 
-      _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_6__["TSP"](_self.citiesArray);
+      _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_7__["TSP"](_self.citiesArray);
 
       _self.createStats();
     }
@@ -36348,7 +36351,7 @@ function () {
 
       _self.stop();
 
-      _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_6__["TSP"](_self.citiesArray);
+      _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_7__["TSP"](_self.citiesArray);
 
       _self.createStats();
     }
@@ -36356,7 +36359,7 @@ function () {
     key: "play",
     value: function play() {
       if (_self.validAlgorithmSelected() && _self.status == 'stopped') {
-        _self.algorithmList[_self.selectedAlgorithm].start(_self.problem);
+        _self.currentNode = _self.algorithmList[_self.selectedAlgorithm].start(_self.problem);
 
         _self.announceStatus('running');
 
@@ -36405,7 +36408,7 @@ function () {
         _self.announceStatus('stopped');
 
         _self.border = new Array();
-        _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_6__["TSP"](_self.citiesArray);
+        _self.problem = new _tsp__WEBPACK_IMPORTED_MODULE_7__["TSP"](_self.citiesArray);
         _self.started = false;
       }
     }
@@ -36413,12 +36416,14 @@ function () {
     key: "end",
     value: function end() {
       _self.announceStatus('ended');
+
+      var distance = 0;
     }
   }, {
     key: "forward",
     value: function forward() {
       if (_self.validAlgorithmSelected() && _self.status == 'stopped') {
-        _self.algorithmList[_self.selectedAlgorithm].start(_self.problem);
+        _self.currentNode = _self.algorithmList[_self.selectedAlgorithm].start(_self.problem);
 
         _self.announceStatus('paused');
 
@@ -36435,35 +36440,36 @@ function () {
   }, {
     key: "step",
     value: function step() {
-      var currNode = _self.algorithmList[_self.selectedAlgorithm].step(_self.problem);
-
-      _self.stepNumber += 1;
       _self.numberOfNodes = _self.problem.frontier.length;
-      _self.currentPath = currNode.pathCost;
-      if (_self.algorithmList[_self.selectedAlgorithm].useHeuristics) _self.calculateHeuristics(currNode);
+      _self.currentPath = _self.currentNode.getDistanceToOrigin().toFixed(0);
+      if (_self.algorithmList[_self.selectedAlgorithm].useHeuristics) _self.calculateHeuristics(_self.currentNode);
 
       if (_self.stepNumber % 10) {
         _self.timeElapsed = (end() * (_self.stepNumber / 10)).toFixed(0);
         start();
       }
 
-      _self.announceCurrentNode(currNode);
+      _self.announceCurrentNode(_self.currentNode);
 
       _self.announceStep();
 
-      var algorithmCompleted = _self.problem.goalTest(currNode);
+      var algorithmCompleted = _self.problem.goalTest(_self.currentNode);
 
-      if (!algorithmCompleted && _self.status == 'running') setTimeout(function () {
-        if (_self.status == 'running') _self.step();
-      }, 50);else if (algorithmCompleted) {
+      if (algorithmCompleted) {
         _self.end();
+      } else {
+        _self.stepNumber += 1;
+        _self.currentNode = _self.algorithmList[_self.selectedAlgorithm].step(_self.problem);
+        if (_self.status == 'running') setTimeout(function () {
+          _self.step();
+        }, 500);
       }
     }
   }, {
     key: "calculateHeuristics",
     value: function calculateHeuristics(currNode) {
       _self.citiesArray.forEach(function (city) {
-        _self.heuristicsList[_self.selectedHeuristics].calculate(_self.problem, city, currNode);
+        city.setHeuristics(_self.heuristicsList[_self.selectedHeuristics].calculate(_self.problem, city, currNode));
       });
     }
   }]);
@@ -36605,7 +36611,6 @@ function () {
     value: function calculate(problem, city, currentNode) {
       var child = currentNode.createChildNode(city, currentNode.state.distanceTo(city), 0);
       var h = 0;
-      var currCity = city;
       var actions = problem.actions(child);
       var edges = createEdges(actions);
       var subgraph = new Array();
@@ -36617,7 +36622,7 @@ function () {
         })) h += edge.distance;
         subgraph.push(edge);
       });
-      city.heuristics = h;
+      return h;
     }
   }, {
     key: "id",
@@ -36632,6 +36637,106 @@ function () {
   }]);
 
   return MST;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/algorithms/ucs.js":
+/*!*******************************!*\
+  !*** ./src/algorithms/ucs.js ***!
+  \*******************************/
+/*! exports provided: UCS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UCS", function() { return UCS; });
+/* harmony import */ var _snode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../snode */ "./src/snode.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/*
+ * travelling_salesperson_sandbox
+ * https://github.com/vbob/travelling_salesperson_sandbox
+ * 
+ * Copyright (c) 2018 Vitor Barth
+ * Licensed under the MIT License
+ * 
+ */
+
+var _id = 'ucs';
+var _displayName = 'Uniform Cost Search (UCS)';
+var _useHeuristics = false;
+
+function compareCities(node) {
+  return function (a, b) {
+    return node.state.distanceTo(a) < node.state.distanceTo(b);
+  };
+}
+
+var UCS =
+/*#__PURE__*/
+function () {
+  function UCS() {
+    _classCallCheck(this, UCS);
+  }
+
+  _createClass(UCS, null, [{
+    key: "start",
+    value: function start(problem) {
+      var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0);
+      problem.frontier.push(node);
+      return node;
+    }
+  }, {
+    key: "step",
+    value: function step(problem) {
+      if (problem.frontier.length == 0) {
+        problem.finish({
+          status: 1,
+          message: 'border is empty'
+        });
+        return null;
+      } else {
+        var node = problem.frontier.shift();
+        problem.actions(node).sort(compareCities(node)).forEach(function (action) {
+          var child = node.createChildNode(action, node.state.distanceTo(action));
+          problem.frontier.unshift(child);
+        });
+
+        if (problem.goalTest(node)) {
+          problem.finish({
+            status: 1,
+            message: problem.solution(node)
+          });
+        }
+
+        return node;
+      }
+    }
+  }, {
+    key: "id",
+    get: function get() {
+      return _id;
+    }
+  }, {
+    key: "displayName",
+    get: function get() {
+      return _displayName;
+    }
+  }, {
+    key: "useHeuristics",
+    get: function get() {
+      return _useHeuristics;
+    }
+  }]);
+
+  return UCS;
 }();
 
 
@@ -36714,6 +36819,11 @@ function () {
     key: "getHeuristics",
     value: function getHeuristics() {
       return this.heuristics;
+    }
+  }, {
+    key: "setHeuristics",
+    value: function setHeuristics(heuristics) {
+      this.heuristics = heuristics;
     }
   }]);
 
@@ -37703,19 +37813,31 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var SNode =
 /*#__PURE__*/
 function () {
-  function SNode(state, parent, pathCost, heuristics) {
+  function SNode(state, parent, pathCost) {
     _classCallCheck(this, SNode);
 
     this.state = state;
     this.parent = parent;
     this.pathCost = pathCost;
-    this.heuristics = heuristics;
   }
 
   _createClass(SNode, [{
     key: "createChildNode",
-    value: function createChildNode(state, cost, heuristics) {
-      return new SNode(state, this, this.pathCost + cost, heuristics);
+    value: function createChildNode(state, cost) {
+      return new SNode(state, this, this.pathCost + cost);
+    }
+  }, {
+    key: "getDistanceToOrigin",
+    value: function getDistanceToOrigin() {
+      var distance = this.pathCost;
+      var node = this;
+
+      while (node.parent) {
+        distance += node.parent.pathCost;
+        node = node.parent;
+      }
+
+      return distance;
     }
   }]);
 
@@ -37861,9 +37983,11 @@ function () {
     key: "solution",
     value: function solution(node) {
       var solution = new Array();
+      node.state.cost = 0;
       solution.unshift(node.state);
 
       while (node.parent) {
+        node.parent.cost += node.state.distanceTo(node.parent.state);
         node = node.parent;
         solution.unshift(node.state);
       }
@@ -37896,8 +38020,9 @@ function () {
     value: function finish(_ref) {
       var status = _ref.status,
           message = _ref.message;
+      message.push(this.initialState);
       console.log('Exited with status ' + status);
-      console.log(message);
+      this.solution = message;
     }
   }]);
 
