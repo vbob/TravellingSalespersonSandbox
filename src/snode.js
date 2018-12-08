@@ -6,7 +6,7 @@ class SNode {
     }
 
     createChildNode(state, cost) {
-        return new SNode(state, this, this.pathCost + cost)
+        return new SNode(state, this, cost)
     }
 
     getDistanceToOrigin() {

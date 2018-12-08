@@ -36416,8 +36416,6 @@ function () {
     key: "end",
     value: function end() {
       _self.announceStatus('ended');
-
-      var distance = 0;
     }
   }, {
     key: "forward",
@@ -36648,92 +36646,9 @@ function () {
   !*** ./src/algorithms/ucs.js ***!
   \*******************************/
 /*! exports provided: UCS */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UCS", function() { return UCS; });
-/* harmony import */ var _snode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../snode */ "./src/snode.js");
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-/*
- * travelling_salesperson_sandbox
- * https://github.com/vbob/travelling_salesperson_sandbox
- * 
- * Copyright (c) 2018 Vitor Barth
- * Licensed under the MIT License
- * 
- */
-
-var _id = 'ucs';
-var _displayName = 'Uniform Cost Search (UCS)';
-var _useHeuristics = false;
-
-var UCS =
-/*#__PURE__*/
-function () {
-  function UCS() {
-    _classCallCheck(this, UCS);
-  }
-
-  _createClass(UCS, null, [{
-    key: "start",
-    value: function start(problem) {
-      var node = new _snode__WEBPACK_IMPORTED_MODULE_0__["SNode"](problem.initialState, null, 0);
-      problem.frontier.push(node);
-      return node;
-    }
-  }, {
-    key: "step",
-    value: function step(problem) {
-      if (problem.frontier.length == 0) {
-        problem.finish({
-          status: 1,
-          message: 'border is empty'
-        });
-        return null;
-      } else {
-        var node = problem.frontier.shift();
-        problem.actions(node).forEach(function (action) {
-          var child = node.createChildNode(action, node.state.distanceTo(action));
-          problem.frontier.unshift(child);
-        });
-
-        if (problem.goalTest(node)) {
-          problem.finish({
-            status: 1,
-            message: problem.solution(node)
-          });
-        }
-
-        return node;
-      }
-    }
-  }, {
-    key: "id",
-    get: function get() {
-      return _id;
-    }
-  }, {
-    key: "displayName",
-    get: function get() {
-      return _displayName;
-    }
-  }, {
-    key: "useHeuristics",
-    get: function get() {
-      return _useHeuristics;
-    }
-  }]);
-
-  return UCS;
-}();
-
-
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open 'D:\\travelling_salesperson_sandbox\\src\\algorithms\\ucs.js'");
 
 /***/ }),
 
@@ -37818,7 +37733,7 @@ function () {
   _createClass(SNode, [{
     key: "createChildNode",
     value: function createChildNode(state, cost) {
-      return new SNode(state, this, this.pathCost + cost);
+      return new SNode(state, this, cost);
     }
   }, {
     key: "getDistanceToOrigin",
@@ -37997,29 +37912,32 @@ function () {
           return city.equals(solCity);
         });
       });
+      if (actions.length == 0) actions.push(this.initialState);
       return actions;
     }
   }, {
     key: "goalTest",
     value: function goalTest(node) {
       var sol = this.solution(node);
-      return this.citiesArray.filter(function (city) {
+      var checkVisitedCities = this.citiesArray.filter(function (city) {
         return !sol.find(function (solCity) {
           return city.equals(solCity);
         });
-      }).length == 0;
+      });
+      return checkVisitedCities.length == 0 && sol[sol.length - 1] == this.initialState;
     }
   }, {
     key: "finish",
     value: function finish(_ref) {
       var status = _ref.status,
           message = _ref.message;
-      message.push(this.initialState);
       console.log('Exited with status ' + status);
 
-      this.solution = function () {
-        return message;
-      };
+      if (status == 0) {
+        this.solution = function () {
+          return message;
+        };
+      } else console.log(message);
     }
   }]);
 

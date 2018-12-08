@@ -192,9 +192,6 @@ class AlgorithmManager {
 
     end() {
         _self.announceStatus('ended')
-        let distance = 0;
-
-
     }
 
     forward() {

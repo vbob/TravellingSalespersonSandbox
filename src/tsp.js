@@ -33,25 +33,31 @@ class TSP {
         let sol = this.solution(node)
         let actions = this.citiesArray.filter(city => !sol.find(solCity => city.equals(solCity)))
 
+        if (actions.length == 0)
+            actions.push(this.initialState)
+
         return actions
     }
 
     goalTest(node) {
         let sol = this.solution(node)
+        let checkVisitedCities = this.citiesArray.filter(city => !sol.find(solCity => city.equals(solCity)))
 
-        return this.citiesArray.filter(city => !sol.find(solCity => city.equals(solCity))).length == 0
+        return checkVisitedCities.length == 0 && sol[sol.length - 1] == this.initialState;
     }
 
     finish({
         status,
         message
     }) {
-        message.push(this.initialState)
+
         console.log('Exited with status ' + status)
 
-        this.solution = () => {
-            return message
-        }
+        if (status == 0) {
+            this.solution = () => {
+                return message
+            }
+        } else console.log(message)
     }
 }
 
